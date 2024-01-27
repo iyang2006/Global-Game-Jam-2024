@@ -18,6 +18,7 @@ public class movement : MonoBehaviour
 
     private bool grounded;
     private Vector2 turning;
+    private Vector3 move_offset;
 
     // Start is called before the first frame update
     void Start()
@@ -30,28 +31,24 @@ public class movement : MonoBehaviour
     void Update()
     {
         //looking
-        turning.x += Input.GetAxis("Mouse X") * xSensitivity;
-        turning.y += Input.GetAxis("Mouse Y") * ySensitivity;
-        camTransform.rotation = Quaternion.Euler(-turning.y, turning.x, 0);
-        playerPos.rotation = Quaternion.Euler(0, camTransform.eulerAngles.y, 0);
+        turning.x += Input.GetAxisRaw("Mouse X") * xSensitivity;
+        turning.y += Input.GetAxisRaw("Mouse Y") * ySensitivity;
+        if (turning.y < -90) {
+            turning.y = -90;
+        }
+        if (turning.y > 90) {
+            turning.y = 90;
+        }
+        camTransform.localRotation = Quaternion.Euler(-turning.y, 0, 0);
+        playerPos.rotation = Quaternion.Euler(0, turning.x,0);
 
 
         //moving
-        Vector3 move_offset = Vector3.zero;
+        move_offset = Vector3.zero;
         
-        if (Input.GetKey(KeyCode.W)) {
-            move_offset += playerPos.forward;
-        }
-        if (Input.GetKey(KeyCode.S)) {
-            move_offset += playerPos.forward * -1;
-        }
-        if (Input.GetKey(KeyCode.A)) {
-            move_offset += playerPos.right * -1;
-        }
-        if (Input.GetKey(KeyCode.D)) {
-            move_offset += playerPos.right;
-        }
+        move_offset += Input.GetAxisRaw("Horizontal") * playerPos.right;
+        move_offset += Input.GetAxisRaw("Vertical") * playerPos.forward;
 
-        playerBody.MovePosition(playerPos.position + (move_offset.normalized * speed * 0.05f));
+        playerBody.MovePosition(playerBody.position + (move_offset.normalized * speed * Time.deltaTime));
     }
 }
