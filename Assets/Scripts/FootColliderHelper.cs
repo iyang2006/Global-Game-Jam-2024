@@ -13,13 +13,13 @@ public class FootColliderHelper : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider col) {
-        if (col.gameObject.tag == "platform") { 
+        if (col.gameObject.tag == "world") { 
             pmove.SetGround(true);
         }
     }
 
     private void OnTriggerExit(Collider col) {
-        if (col.gameObject.tag == "platform") { 
+        if (col.gameObject.tag == "world") { 
             pmove.SetGround(false);
         }
     }
