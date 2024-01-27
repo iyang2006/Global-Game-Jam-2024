@@ -79,12 +79,12 @@ public class PlayerMovement : MonoBehaviour
             //jumping
             if (Input.GetKeyDown(KeyCode.Space)) {
                 if (grounded) {
-                    playerBody.velocity = playerBody.velocity * accel; //new Vector3(playerBody.velocity.x, , playerBody.velocity.z);
+                    playerBody.velocity = new Vector3(playerBody.velocity.x, 0, playerBody.velocity.z);
                     playerBody.AddForce(playerPos.up * 50 * jumpStrength);
                     grounded = false;
                 }
                 else if (doubleJump) {
-                    playerBody.velocity = playerBody.velocity * accel;  //new Vector3(playerBody.velocity.x, 0, playerBody.velocity.z);
+                    playerBody.velocity = new Vector3(playerBody.velocity.x, 0, playerBody.velocity.z);
                     playerBody.AddForce(playerPos.up * 50 * jumpStrength);
                     grounded = false;
                     doubleJump = false;
