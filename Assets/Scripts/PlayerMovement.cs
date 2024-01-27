@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     private bool dash;
     private float prevDash;
     private bool inDash;
+    private float maxZoom;
     private Vector2 turning;
     private Vector3 move_offset;
 
@@ -45,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
         inDash = false;
         prevDash = Time.time;
         Cursor.lockState = CursorLockMode.Locked;
+        maxZoom = 60 + dashZoom;
     }
 
     private void DashFunc() {
@@ -77,12 +79,12 @@ public class PlayerMovement : MonoBehaviour
             //jumping
             if (Input.GetKeyDown(KeyCode.Space)) {
                 if (grounded) {
-                    playerBody.velocity = playerBody.velocity * accel; //new Vector3(playerBody.velocity.x, , playerBody.velocity.z);
+                    playerBody.velocity = new Vector3(playerBody.velocity.x, 0, playerBody.velocity.z);
                     playerBody.AddForce(playerPos.up * 50 * jumpStrength);
                     grounded = false;
                 }
                 else if (doubleJump) {
-                    playerBody.velocity = playerBody.velocity * accel;  //new Vector3(playerBody.velocity.x, 0, playerBody.velocity.z);
+                    playerBody.velocity = new Vector3(playerBody.velocity.x, 0, playerBody.velocity.z);
                     playerBody.AddForce(playerPos.up * 50 * jumpStrength);
                     grounded = false;
                     doubleJump = false;
@@ -99,17 +101,17 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         else {
-            if (Time.time - prevDash < 0.2f * dashLength) {
-                cam.fieldOfView -= 0.8f * dashZoom;
+            if (Time.time - prevDash < 0.1f * dashLength) {
+                cam.fieldOfView = Mathf.Lerp(60, maxZoom, (Time.time - prevDash) / (0.1f * dashLength));
             }
             else {
-                cam.fieldOfView += 0.2f * dashZoom;
-
+                cam.fieldOfView = Mathf.Lerp(maxZoom, 60, (Time.time - prevDash + (0.1f * dashLength)) / (0.9f * dashLength));
             }
             playerBody.velocity = playerBody.velocity * 0.98f;
             if (Time.time - prevDash > dashLength) {
                 inDash = false;
                 playerBody.useGravity = true;
+                Debug.Log(cam.fieldOfView);
                 cam.fieldOfView = 60;
             }
         }
