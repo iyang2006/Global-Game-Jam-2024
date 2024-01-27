@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 4344042}
   m_Layer: 0
   m_Name: Cube (3)
-  m_TagString: platform
+  m_TagString: world
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 231127048}
   m_Layer: 0
   m_Name: Cube (1)
-  m_TagString: platform
+  m_TagString: world
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -348,7 +348,7 @@ GameObject:
   - component: {fileID: 252623272}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: platform
+  m_TagString: world
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -465,7 +465,7 @@ GameObject:
   - component: {fileID: 402480260}
   m_Layer: 0
   m_Name: Cube (9)
-  m_TagString: platform
+  m_TagString: world
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -688,7 +688,7 @@ GameObject:
   - component: {fileID: 529558835}
   m_Layer: 0
   m_Name: Cube (11)
-  m_TagString: platform
+  m_TagString: world
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -842,7 +842,7 @@ GameObject:
   - component: {fileID: 995864881}
   m_Layer: 0
   m_Name: floor
-  m_TagString: platform
+  m_TagString: world
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -947,7 +947,7 @@ GameObject:
   - component: {fileID: 1301231964}
   m_Layer: 0
   m_Name: Cube (6)
-  m_TagString: platform
+  m_TagString: world
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1052,7 +1052,7 @@ GameObject:
   - component: {fileID: 1494469668}
   m_Layer: 0
   m_Name: Cube (5)
-  m_TagString: platform
+  m_TagString: world
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1157,7 +1157,7 @@ GameObject:
   - component: {fileID: 1627363998}
   m_Layer: 0
   m_Name: Cube (10)
-  m_TagString: platform
+  m_TagString: world
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1262,7 +1262,7 @@ GameObject:
   - component: {fileID: 1637992227}
   m_Layer: 0
   m_Name: Cube (4)
-  m_TagString: platform
+  m_TagString: world
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1367,7 +1367,7 @@ GameObject:
   - component: {fileID: 1768012482}
   m_Layer: 0
   m_Name: Cube (7)
-  m_TagString: platform
+  m_TagString: world
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1472,7 +1472,7 @@ GameObject:
   - component: {fileID: 1774614250}
   m_Layer: 0
   m_Name: Cube (2)
-  m_TagString: platform
+  m_TagString: world
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1577,7 +1577,7 @@ GameObject:
   - component: {fileID: 1971630271}
   m_Layer: 0
   m_Name: Cube (8)
-  m_TagString: platform
+  m_TagString: world
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
