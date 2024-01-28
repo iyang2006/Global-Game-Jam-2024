@@ -289,6 +289,17 @@ MonoBehaviour:
   muzzleLeft: {fileID: 1889211088081799801}
   muzzleRight: {fileID: 8409814980278239499}
   flashDuration: 0.05
+  reloadAnimDuration: 0.8
+  maxReloadDip: 0.24
+  maxReloadTilt: 50
+  recoilDuration: 0.5
+  recoveryDuration: 0.4
+  maxRecoilBack: 0.3
+  maxRecoilTilt: -30
+  dull: {fileID: 2100000, guid: aa9116a30c28c224aa7c45f99c2f471e, type: 2}
+  glowing: {fileID: 2100000, guid: 9572d6ca3a3a28c4397bf153e379e0fe, type: 2}
+  leftMesh: {fileID: 5634725671160264002}
+  rightMesh: {fileID: 2797821778690112165}
 --- !u!1 &1837562358868706587
 GameObject:
   m_ObjectHideFlags: 0
@@ -703,12 +714,12 @@ MonoBehaviour:
   camTransform: {fileID: 2144264195455235876}
   wScript: {fileID: 1278479967235664860}
   speed: 10
-  jumpStrength: 30
+  jumpStrength: 15
   dashStrength: 35
   dashLength: 0.3
   dashCoolDown: 1.8
   dashZoom: 10
-  xSensitivity: 30
+  xSensitivity: 6
   ySensitivity: 3
   accel: 0.8
   footCollider: {fileID: 1565888674326255629}
@@ -740,8 +751,8 @@ MonoBehaviour:
   cameraTransform: {fileID: 2144264195455235876}
   damage: 50
   spinTimeLimit: 0.5
-  spinResolution: 100
-  spinShootTimeLimit: 2
+  spinResolution: 50
+  spinShootTimeLimit: 0.5
   spinMult: 3
   maxAmmo: 5
   maxRange: 9000
@@ -841,6 +852,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 089dfd6afa60bf0459dc1e661c68867d, type: 3}
+--- !u!23 &2797821778690112165 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 089dfd6afa60bf0459dc1e661c68867d,
+    type: 3}
+  m_PrefabInstance: {fileID: 3535969696443426337}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3934159021186154954 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 089dfd6afa60bf0459dc1e661c68867d,
@@ -940,6 +957,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 089dfd6afa60bf0459dc1e661c68867d, type: 3}
+--- !u!23 &5634725671160264002 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 089dfd6afa60bf0459dc1e661c68867d,
+    type: 3}
+  m_PrefabInstance: {fileID: 6481529258109479366}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6807681186615774765 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 089dfd6afa60bf0459dc1e661c68867d,
