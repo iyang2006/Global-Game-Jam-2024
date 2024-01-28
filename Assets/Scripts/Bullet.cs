@@ -26,7 +26,7 @@ public class Bullet : MonoBehaviour
         }
         if (other.gameObject.tag == "player")
         {
-            // do damage to player
+            other.gameObject.GetComponent<Health>().damageEntity(20);
             Destroy(gameObject);
         }
     }
