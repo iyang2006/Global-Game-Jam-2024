@@ -284,6 +284,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841c625b157db25479cab4680569acd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sniperLeftTrans: {fileID: 6807681186615774765}
+  sniperRightTrans: {fileID: 3934159021186154954}
   muzzleLeft: {fileID: 1889211088081799801}
   muzzleRight: {fileID: 8409814980278239499}
   flashDuration: 0.05
