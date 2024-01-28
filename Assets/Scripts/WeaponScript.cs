@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WeaponScript : MonoBehaviour
 {
@@ -22,7 +23,15 @@ public class WeaponScript : MonoBehaviour
     [SerializeField] private SniperAudio rightSniperAudio;
     [SerializeField] private GameObject smokePrefab;
 
-    
+    [SerializeField] private GameObject leftAmmoHUD;
+    [SerializeField] private Sprite[] hudL;
+    private Image leftAmmoImage;
+
+    [SerializeField] private GameObject rightAmmoHUD;
+    [SerializeField] private Sprite[] hudR;
+    private Image rightAmmoImage;
+
+
     private int ammoL;
     private int ammoR;
     private bool hasSpun;
@@ -65,6 +74,7 @@ public class WeaponScript : MonoBehaviour
         controller.SetDull();
         hasSpun = false;
 
+        leftAmmoImage.sprite = hudL[ammoL];
     }
 
     private void FireRight() {
@@ -86,6 +96,8 @@ public class WeaponScript : MonoBehaviour
         }
         controller.SetDull();
         hasSpun = false;
+
+        rightAmmoImage.sprite = hudR[ammoR];
     }
 
     private void Fire(bool isLeft) {
@@ -184,6 +196,9 @@ public class WeaponScript : MonoBehaviour
         }
 
         InvokeRepeating("UpdateSpin", 0.1f, (spinTimeLimit / spinResolution));
+
+        leftAmmoImage = leftAmmoHUD.GetComponent<Image>();
+        rightAmmoImage = rightAmmoHUD.GetComponent<Image>();
     }
 
     // Update is called once per frame
@@ -204,6 +219,8 @@ public class WeaponScript : MonoBehaviour
                 ammoL = maxAmmo;
                 ammoR = maxAmmo;
                 reloading = false;
+                leftAmmoImage.sprite = hudL[ammoL];
+                rightAmmoImage.sprite = hudR[ammoR];
             }
         }
 
