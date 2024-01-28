@@ -47,6 +47,7 @@ public class WeaponScript : MonoBehaviour
             controller.ShootLeft();
             Fire();
         }
+        controller.SetDull();
         hasSpun = false;
 
     }
@@ -61,6 +62,7 @@ public class WeaponScript : MonoBehaviour
             controller.ShootRight();
             Fire();
         }
+        controller.SetDull();
         hasSpun = false;
     }
 
@@ -84,6 +86,7 @@ public class WeaponScript : MonoBehaviour
 
     private void Reload() {
         if ((Time.time - lastRight > coolDown) && (Time.time - lastLeft > coolDown) && (reloading == false)) {
+            controller.Reload();
             reloading = true;
             lastReload = Time.time;
         }
@@ -95,6 +98,7 @@ public class WeaponScript : MonoBehaviour
         for (int i = 0; i < spinResolution; i++) {
             angles.Enqueue(0f);
         }
+        controller.SetGlow();
         hasSpun = true;
         lastSpinTrue = Time.time;
         Debug.Log("has spun");
@@ -103,6 +107,7 @@ public class WeaponScript : MonoBehaviour
     private void UpdateSpin() {
         if (hasSpun && (Time.time - lastSpinTrue > spinShootTimeLimit)) {
             Debug.Log("spin time out");
+            controller.SetDull();
             hasSpun = false;
         }
         Quaternion currQuat = Quaternion.Euler(0, cameraTransform.rotation.eulerAngles.y, 0);
@@ -128,6 +133,7 @@ public class WeaponScript : MonoBehaviour
         lastRight = 0f;
         lastReload = 0f;
         reloading = false;
+        controller.SetDull();
         hasSpun = false;
         playerMask = LayerMask.NameToLayer("player");
         playerMask = playerMask | LayerMask.NameToLayer("Ignore Raycast");
