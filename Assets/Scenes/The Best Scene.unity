@@ -378,6 +378,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pepe
       objectReference: {fileID: 0}
+    - target: {fileID: 3310609446261515536, guid: fd43913711ae9ff42932bfabca8ff051,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3830430495480310233, guid: fd43913711ae9ff42932bfabca8ff051,
         type: 3}
       propertyPath: dummyPlayer
@@ -641,11 +646,21 @@ PrefabInstance:
     - target: {fileID: 3310609446261515536, guid: fd43913711ae9ff42932bfabca8ff051,
         type: 3}
       propertyPath: m_Name
-      value: Pepe (5)
+      value: Troll Face
       objectReference: {fileID: 0}
     - target: {fileID: 3634138764910914982, guid: fd43913711ae9ff42932bfabca8ff051,
         type: 3}
       propertyPath: m_LocalPosition.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3657421428834964927, guid: fd43913711ae9ff42932bfabca8ff051,
+        type: 3}
+      propertyPath: attackDamage
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3657421428834964927, guid: fd43913711ae9ff42932bfabca8ff051,
+        type: 3}
+      propertyPath: attackCooldown
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3830430495480310233, guid: fd43913711ae9ff42932bfabca8ff051,
@@ -946,11 +961,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 678b38b7ff85d4646bd1fa22ed0d7a15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySprite: {fileID: 0}
-  enemyMovement: {fileID: 0}
-  chargeWindUp: 0
-  chargeDuration: 0
-  chargeCooldown: 0
+  enemySprite: {fileID: 963583424}
+  enemyMovement: {fileID: 963583420}
+  enemyAttack: {fileID: 1613573246}
+  chargeWindUp: 1.2
+  chargeDuration: 5
+  chargeSpeed: 10
+  chargeCooldown: 5
+  currentWindup: 0
+  currentDuration: 0
+  currentCooldown: 0
+  windupSprites: []
+  chargeSprite: {fileID: 0}
+  normalSpeed: 0
+--- !u!114 &963583420 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7893939318824496014, guid: fd43913711ae9ff42932bfabca8ff051,
+    type: 3}
+  m_PrefabInstance: {fileID: 698885943}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963583410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cba5b505a4307db4fa2690955f48103a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &963583424 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3830430495480310233, guid: fd43913711ae9ff42932bfabca8ff051,
+    type: 3}
+  m_PrefabInstance: {fileID: 698885943}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963583410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e6caaf1615123444a399db822c53618, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1203590138
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1255,6 +1302,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pepe (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3310609446261515536, guid: fd43913711ae9ff42932bfabca8ff051,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8028045528247718097, guid: fd43913711ae9ff42932bfabca8ff051,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1322,6 +1374,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pepe (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3310609446261515536, guid: fd43913711ae9ff42932bfabca8ff051,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8028045528247718097, guid: fd43913711ae9ff42932bfabca8ff051,
         type: 3}
@@ -1451,6 +1508,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a43de8f9f8f438428e2138d0c2a2a59, type: 3}
+--- !u!114 &1613573246 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3657421428834964927, guid: fd43913711ae9ff42932bfabca8ff051,
+    type: 3}
+  m_PrefabInstance: {fileID: 698885943}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62a4fb7f1e9081049b03e58ea3129704, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1754110459
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1463,6 +1532,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pepe (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3310609446261515536, guid: fd43913711ae9ff42932bfabca8ff051,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8028045528247718097, guid: fd43913711ae9ff42932bfabca8ff051,
         type: 3}
@@ -1604,6 +1678,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pepe (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3310609446261515536, guid: fd43913711ae9ff42932bfabca8ff051,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8028045528247718097, guid: fd43913711ae9ff42932bfabca8ff051,
         type: 3}

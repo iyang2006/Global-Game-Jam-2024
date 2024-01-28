@@ -10,13 +10,15 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private Transform this_enemy;
     private Transform player;
     private NavMeshPath path;
-    [SerializeField] float speed;
-    [SerializeField] float turnSpeed;
+    [SerializeField] public float speed;
+    [SerializeField] public float turnSpeed;
     private Vector3 boxSize;
     private bool flankDir;
     [SerializeField] private float rayDist;
     [SerializeField] private float flankDist;
     [SerializeField] private bool seeThroughWalls;
+    public bool isCharging;
+    private Vector3 latestPlayerPosition;
 
 
     void Start()
@@ -25,6 +27,7 @@ public class EnemyMovement : MonoBehaviour
         path = new NavMeshPath();
         //boxSize = GetComponent<BoxCollider>().size;
         boxSize = GetComponentInChildren<BoxCollider>().size;
+        isCharging = false;
     }
     void FixedUpdate()
     {
@@ -71,7 +74,22 @@ public class EnemyMovement : MonoBehaviour
                 RaycastHit frontHit;
                 if (hit.distance < flankDist)
                 {
+
+                    /*Vector3 targetPos;
+                    if (isCharging)
+                    {
+                        targetPos = latestPlayerPosition;
+                    } else
+                    {
+                        targetPos = player.position;
+                        latestPlayerPosition = targetPos;
+                    }*/
                     Vector3 targetPos = player.position;
+                    if (!isCharging)
+                    {
+                        latestPlayerPosition = targetPos;
+                    }
+
                     float angle = Vector3.Angle(this_enemy.right, (this_enemy.position - targetPos));
                     if (angle < 90)
                     {
@@ -92,7 +110,23 @@ public class EnemyMovement : MonoBehaviour
 
                 if (Physics.Raycast((this_enemy.position + (this_enemy.forward * boxSize.z * 0.51f)), this_enemy.forward, out frontHit, rayDist, mask))
                 {
+
+                    /*Vector3 targetPos;
+                    if (isCharging)
+                    {
+                        targetPos = latestPlayerPosition;
+                    }
+                    else
+                    {
+                        targetPos = frontHit.collider.gameObject.transform.position;
+                        latestPlayerPosition = targetPos;
+                    }*/
                     Vector3 targetPos = frontHit.collider.gameObject.transform.position;
+                    if (!isCharging)
+                    {
+                        latestPlayerPosition = targetPos;
+                    }
+
                     float angle = Vector3.Angle(this_enemy.right, (this_enemy.position - targetPos));
                     if (angle < 90)
                     {
@@ -114,10 +148,21 @@ public class EnemyMovement : MonoBehaviour
                 move_offset = move_offset.normalized;
                 //string pos_debug = "" + move_offset.x + " " + move_offset.y + " " + move_offset.z;
                 Debug.DrawLine(this_enemy.position, (this_enemy.position + 2 * move_offset), Color.blue);
-                agent.Move(move_offset * speed * Time.fixedDeltaTime);
-            }
-        }
 
+                //agent.Move(move_offset * speed * Time.fixedDeltaTime);
+                if (isCharging)
+                {
+                    //Vector3 forward = new Vector3(0, 0, 1);
+                    agent.Move(this_enemy.forward * speed * Time.fixedDeltaTime);
+                }
+                else
+                {
+                    agent.Move(move_offset * speed * Time.fixedDeltaTime);
+                }
+
+            }
+
+        }
 
     }
 }

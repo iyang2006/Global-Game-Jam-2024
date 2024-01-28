@@ -6,11 +6,12 @@ public class EnemySprite : MonoBehaviour
 {
 
     private Transform dummyPlayer;
-    [SerializeField] SpriteRenderer spriteRenderer;
-    [SerializeField] Sprite[] sprites;
-    [SerializeField] float spriteLoopTime;
-    float currentTime;
-    int spriteIndex;
+    [SerializeField] public SpriteRenderer spriteRenderer;
+    [SerializeField] public Sprite[] sprites;
+    [SerializeField] public float spriteLoopTime;
+    public float currentTime;
+    public int spriteIndex;
+    public bool isCharging;
 
     // Start is called before the first frame update
     void Start()
@@ -19,12 +20,13 @@ public class EnemySprite : MonoBehaviour
         spriteRenderer.sprite = sprites[0];
         spriteIndex = 0;
         currentTime = spriteLoopTime;
+        isCharging = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (dummyPlayer != null)
+        if (dummyPlayer != null && !isCharging)
         {
             //transform.LookAt(mainCam.transform.position);
             transform.LookAt(dummyPlayer.position);
