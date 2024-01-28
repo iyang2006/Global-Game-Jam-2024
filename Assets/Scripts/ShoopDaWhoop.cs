@@ -23,12 +23,17 @@ public class ShoopDaWhoop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Vector3 playerVector = player.transform.position - transform.position;
+
+        if (Physics.Raycast(transform.position, playerVector, out RaycastHit hit, 256, layerMask))
+        {
+            Debug.DrawRay(transform.position, hit.transform.position);
+        }
     }
 
     IEnumerator waiting()
     {
-        while (true)
+        //while (true)
         {
             /*
             // play sound queue
@@ -84,12 +89,7 @@ public class ShoopDaWhoop : MonoBehaviour
 
             // play sound queue
 
-            Vector3 playerVector = player.transform.position - transform.position;
-
-            if (Physics.Raycast(transform.position, playerVector, out RaycastHit hit, 256, layerMask))
-            {
-                Debug.DrawRay(transform.position, hit.transform.position);
-            }
+            
         }
     }
 }
