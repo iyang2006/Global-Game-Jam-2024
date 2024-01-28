@@ -8,6 +8,7 @@ TagManager:
   - world
   - platform
   - enemy
+  - dummyPlayer
   layers:
   - Default
   - TransparentFX
@@ -16,9 +17,9 @@ TagManager:
   - Water
   - UI
   - player
-  - 
+  - enemy
   - world
-  - 
+  - dummyPlayer
   - 
   - 
   - 

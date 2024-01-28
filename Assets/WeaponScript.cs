@@ -5,10 +5,12 @@ using UnityEngine;
 public class WeaponScript : MonoBehaviour
 {
 
-    [SerializeField] private Transform playerTransform;
+    //[SerializeField] private Rigidbody playerBody;
     [SerializeField] private Transform cameraTransform;
     [SerializeField] private float damage;
     [SerializeField] private float spinTimeLimit;
+    [SerializeField] private float spinResolution;
+    [SerializeField] private float spinShootTimeLimit;
     [SerializeField] private float spinMult;
     [SerializeField] private int maxAmmo;
     [SerializeField] private float maxRange;
@@ -23,6 +25,16 @@ public class WeaponScript : MonoBehaviour
     private float lastRight;
     private bool reloading;
     private float lastReload;
+    private bool turningLeft;
+
+    private Queue<float> angles;
+    private float angleSum;
+    private Quaternion prevQuat;
+    private float lastSpinTrue;
+
+    public void SetTurningLeft(bool val) {
+        turningLeft = val;
+    }
 
     private void FireLeft() {
         if (ammoL <= 0) {
@@ -33,6 +45,7 @@ public class WeaponScript : MonoBehaviour
             lastLeft = Time.time;
             Fire();
         }
+        hasSpun = false;
     }
 
     private void FireRight() {
@@ -44,6 +57,7 @@ public class WeaponScript : MonoBehaviour
             lastRight = Time.time;
             Fire();
         }
+        hasSpun = false;
     }
 
     private void PlayNoAmmo() {
@@ -51,14 +65,15 @@ public class WeaponScript : MonoBehaviour
     }
 
     private void Fire() {
-        Debug.Log("fire gun");
         RaycastHit hit;
         if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, maxRange, playerMask)) {
-            Debug.Log(hit.collider.gameObject.tag);
+            float tempDmg = damage;
+            if (hasSpun) {
+                tempDmg *= spinMult;
+            }
             if (hit.collider.gameObject.tag == "enemy") {
-                Debug.Log("hit pepe");
                 Health healthScript = hit.collider.gameObject.GetComponentInParent<Health>();
-                healthScript.damageEntity(damage);
+                healthScript.damageEntity(tempDmg);
             }
         }
     }
@@ -70,6 +85,36 @@ public class WeaponScript : MonoBehaviour
         }
     }
 
+    private void SetSpinTrue() {
+        angleSum = 0;
+        angles.Clear();
+        for (int i = 0; i < spinResolution; i++) {
+            angles.Enqueue(0f);
+        }
+        hasSpun = true;
+        lastSpinTrue = Time.time;
+        Debug.Log("has spun");
+    }
+
+    private void UpdateSpin() {
+        if (hasSpun && (Time.time - lastSpinTrue > spinShootTimeLimit)) {
+            Debug.Log("spin time out");
+            hasSpun = false;
+        }
+        Quaternion currQuat = Quaternion.Euler(0, cameraTransform.rotation.eulerAngles.y, 0);
+        float ang = Quaternion.Angle(currQuat, prevQuat);
+        if (turningLeft) {
+            ang = ang * -1;
+        }
+        angleSum += ang;
+        angleSum -= angles.Dequeue();
+        angles.Enqueue(ang);
+        if (angleSum > 360 || angleSum < -360) {
+            SetSpinTrue();
+        }
+        prevQuat = currQuat;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -79,9 +124,20 @@ public class WeaponScript : MonoBehaviour
         lastRight = 0f;
         lastReload = 0f;
         reloading = false;
+        hasSpun = false;
         playerMask = LayerMask.NameToLayer("player");
         playerMask = playerMask | LayerMask.NameToLayer("Ignore Raycast");
         playerMask = ~playerMask;
+        angles = new Queue<float>();
+        prevQuat = Quaternion.Euler(0, cameraTransform.rotation.eulerAngles.y, 0);
+        turningLeft = true;
+
+        angleSum = 0f;
+        for (int i = 0; i < spinResolution; i++) {
+            angles.Enqueue(0f);
+        }
+
+        InvokeRepeating("UpdateSpin", 0.1f, (spinTimeLimit / spinResolution));
     }
 
     // Update is called once per frame
@@ -104,5 +160,7 @@ public class WeaponScript : MonoBehaviour
                 reloading = false;
             }
         }
+
     }
+
 }
