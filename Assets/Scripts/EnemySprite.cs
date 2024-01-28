@@ -6,11 +6,11 @@ public class EnemySprite : MonoBehaviour
 {
 
     private Transform dummyPlayer;
-    [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private Sprite[] sprites;
-    [SerializeField] private float spriteLoopTime;
-    private float currentTime;
-    private int spriteIndex;
+    [SerializeField] SpriteRenderer spriteRenderer;
+    [SerializeField] Sprite[] sprites;
+    [SerializeField] float spriteLoopTime;
+    float currentTime;
+    int spriteIndex;
 
     // Start is called before the first frame update
     void Start()

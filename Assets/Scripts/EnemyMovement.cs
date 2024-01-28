@@ -10,8 +10,8 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private Transform this_enemy;
     private Transform player;
     private NavMeshPath path;
-    [SerializeField] private float speed;
-    [SerializeField] private float turnSpeed;
+    [SerializeField] float speed;
+    [SerializeField] float turnSpeed;
     private Vector3 boxSize;
     private bool flankDir;
     [SerializeField] private float rayDist;
