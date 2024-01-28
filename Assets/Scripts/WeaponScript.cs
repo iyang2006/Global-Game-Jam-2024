@@ -17,6 +17,8 @@ public class WeaponScript : MonoBehaviour
     [SerializeField] private float coolDown;
     [SerializeField] private float reloadLength;
     [SerializeField] private GunController controller;
+    [SerializeField] private PlayerAudio audioControl;
+
     
     private int ammoL;
     private int ammoR;
@@ -75,6 +77,10 @@ public class WeaponScript : MonoBehaviour
             float tempDmg = damage;
             if (hasSpun) {
                 tempDmg *= spinMult;
+                audioControl.PlayPowerHit();
+            }
+            else {
+                audioControl.PlayHit();
             }
             if (hit.collider.gameObject.tag == "enemy") {
                 Health healthScript = hit.collider.gameObject.GetComponentInParent<Health>();
@@ -85,6 +91,7 @@ public class WeaponScript : MonoBehaviour
 
     private void Reload() {
         if ((Time.time - lastRight > coolDown) && (Time.time - lastLeft > coolDown) && (reloading == false)) {
+            audioControl.PlayReload();
             controller.Reload();
             reloading = true;
             lastReload = Time.time;
@@ -98,6 +105,7 @@ public class WeaponScript : MonoBehaviour
             angles.Enqueue(0f);
         }
         controller.SetGlow();
+        audioControl.PlayPowerup();
         hasSpun = true;
         lastSpinTrue = Time.time;
         Debug.Log("has spun");
@@ -106,6 +114,7 @@ public class WeaponScript : MonoBehaviour
     private void UpdateSpin() {
         if (hasSpun && (Time.time - lastSpinTrue > spinShootTimeLimit)) {
             Debug.Log("spin time out");
+            audioControl.PlayPowerDown();
             controller.SetDull();
             hasSpun = false;
         }

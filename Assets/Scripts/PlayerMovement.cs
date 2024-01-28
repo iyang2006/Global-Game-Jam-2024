@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float ySensitivity;
     [SerializeField] private float accel;
     [SerializeField] private SphereCollider footCollider;
+    [SerializeField] private PlayerAudio audioControl;
     
 
     private bool grounded;
@@ -51,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void DashFunc() {
-        Debug.Log("dash!");
+        audioControl.PlayDash();
         dash = false;
         prevDash = Time.time;
         inDash = true;
@@ -87,11 +88,13 @@ public class PlayerMovement : MonoBehaviour
             //jumping
             if (Input.GetKeyDown(KeyCode.Space)) {
                 if (grounded) {
+                    audioControl.PlayJump();
                     playerBody.velocity = new Vector3(playerBody.velocity.x, 0, playerBody.velocity.z);
                     playerBody.AddForce(playerPos.up * 50 * jumpStrength);
                     grounded = false;
                 }
                 else if (doubleJump) {
+                    audioControl.PlayJump();
                     playerBody.velocity = new Vector3(playerBody.velocity.x, 0, playerBody.velocity.z);
                     playerBody.AddForce(playerPos.up * 50 * jumpStrength);
                     grounded = false;
