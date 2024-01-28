@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 05c5e6c9e909d8b49a96bdb4c1d7722b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -119,6 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aeb4dc7ceb97224ba0c5162c109d665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 20
   bulletVector: {x: 0, y: 0, z: 0}
 --- !u!54 &2430125219734864957
 Rigidbody:
