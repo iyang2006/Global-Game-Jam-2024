@@ -45,7 +45,7 @@ public class ShoopDaWhoop : MonoBehaviour
                 Vector3 laserVector = hit.transform.position - transform.position;
                 Debug.DrawRay(transform.position, laserVector, Color.red);
 
-                GameObject laser = Instantiate(laserPrefab, laserVector / 2 + transform.position,
+                GameObject laser = Instantiate(laserPrefab, playerVector / 2 + transform.position,
                             Quaternion.LookRotation(laserVector, Vector3.up));
                 laser.transform.Rotate(Vector3.right, 90, Space.Self);
                 laser.transform.localScale = new Vector3(1, laserVector.magnitude / 2, 1);
