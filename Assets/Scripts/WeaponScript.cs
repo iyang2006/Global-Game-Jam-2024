@@ -17,6 +17,10 @@ public class WeaponScript : MonoBehaviour
     [SerializeField] private float coolDown;
     [SerializeField] private float reloadLength;
     [SerializeField] private GunController controller;
+    [SerializeField] private PlayerAudio audioControl;
+    [SerializeField] private SniperAudio leftSniperAudio;
+    [SerializeField] private SniperAudio rightSniperAudio;
+
     
     private int ammoL;
     private int ammoR;
@@ -39,11 +43,17 @@ public class WeaponScript : MonoBehaviour
 
     private void FireLeft() {
         if (ammoL <= 0) {
-            PlayNoAmmo();
+            leftSniperAudio.PlayEmpty();
         }
         else if ((Time.time - lastLeft > coolDown) && (reloading == false)) {
             ammoL -= 1;
             lastLeft = Time.time;
+            if (hasSpun) {
+                leftSniperAudio.PlayPowershot();
+            }
+            else {
+                leftSniperAudio.PlayShot();
+            }
             controller.ShootLeft();
             Fire();
         }
@@ -54,11 +64,17 @@ public class WeaponScript : MonoBehaviour
 
     private void FireRight() {
         if (ammoR <= 0) {
-            PlayNoAmmo();
+            rightSniperAudio.PlayEmpty();
         }
         else if ((Time.time - lastRight > coolDown) && (reloading == false)) {
             ammoR -= 1;
             lastRight = Time.time;
+            if (hasSpun) {
+                rightSniperAudio.PlayPowershot();
+            }
+            else {
+                rightSniperAudio.PlayShot();
+            }
             controller.ShootRight();
             Fire();
         }
@@ -66,18 +82,18 @@ public class WeaponScript : MonoBehaviour
         hasSpun = false;
     }
 
-    private void PlayNoAmmo() {
-        Debug.Log("no ammo");
-    }
-
     private void Fire() {
         RaycastHit hit;
         if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, maxRange, playerMask)) {
-            float tempDmg = damage;
-            if (hasSpun) {
-                tempDmg *= spinMult;
-            }
             if (hit.collider.gameObject.tag == "enemy") {
+                float tempDmg = damage;
+                if (hasSpun) {
+                    tempDmg *= spinMult;
+                    audioControl.PlayPowerHit();
+                }
+                else {
+                    audioControl.PlayHit();
+                }
                 Health healthScript = hit.collider.gameObject.GetComponentInParent<Health>();
                 healthScript.damageEntity(tempDmg);
             }
@@ -86,6 +102,7 @@ public class WeaponScript : MonoBehaviour
 
     private void Reload() {
         if ((Time.time - lastRight > coolDown) && (Time.time - lastLeft > coolDown) && (reloading == false)) {
+            audioControl.PlayReload();
             controller.Reload();
             reloading = true;
             lastReload = Time.time;
@@ -99,6 +116,9 @@ public class WeaponScript : MonoBehaviour
             angles.Enqueue(0f);
         }
         controller.SetGlow();
+        if (hasSpun == false) {
+            audioControl.PlayPowerup();
+        }
         hasSpun = true;
         lastSpinTrue = Time.time;
         Debug.Log("has spun");
@@ -107,6 +127,7 @@ public class WeaponScript : MonoBehaviour
     private void UpdateSpin() {
         if (hasSpun && (Time.time - lastSpinTrue > spinShootTimeLimit)) {
             Debug.Log("spin time out");
+            audioControl.PlayPowerDown();
             controller.SetDull();
             hasSpun = false;
         }

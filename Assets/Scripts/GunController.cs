@@ -22,6 +22,7 @@ public class GunController : MonoBehaviour
     [SerializeField] private Material glowing;
     [SerializeField] private MeshRenderer leftMesh;
     [SerializeField] private MeshRenderer rightMesh;
+
     private float initRecoilDur;
 
     private Quaternion maxRecoilQuat;
