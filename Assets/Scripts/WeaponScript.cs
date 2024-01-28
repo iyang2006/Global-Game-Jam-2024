@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WeaponScript : MonoBehaviour
 {
@@ -22,7 +23,22 @@ public class WeaponScript : MonoBehaviour
     [SerializeField] private SniperAudio rightSniperAudio;
     [SerializeField] private GameObject smokePrefab;
 
-    
+    [SerializeField] private GameObject leftAmmoHUD;
+    [SerializeField] private Sprite[] hudL;
+    private Image leftAmmoImage;
+
+    [SerializeField] private GameObject rightAmmoHUD;
+    [SerializeField] private Sprite[] hudR;
+    private Image rightAmmoImage;
+
+    [SerializeField] private GameObject marker;
+    [SerializeField] private Sprite hitSprite;
+    [SerializeField] private Sprite bigHitSprite;
+    private Image hitSpriteImage;
+    private float hitMarkerDuration;
+    private float currentHitMarkerTime;
+
+
     private int ammoL;
     private int ammoR;
     private bool hasSpun;
@@ -65,6 +81,7 @@ public class WeaponScript : MonoBehaviour
         controller.SetDull();
         hasSpun = false;
 
+        leftAmmoImage.sprite = hudL[ammoL];
     }
 
     private void FireRight() {
@@ -77,6 +94,7 @@ public class WeaponScript : MonoBehaviour
             lastRight = Time.time;
             if (hasSpun) {
                 rightSniperAudio.PlayPowershot();
+                startHitMarker(true);
             }
             else {
                 rightSniperAudio.PlayShot();
@@ -86,6 +104,8 @@ public class WeaponScript : MonoBehaviour
         }
         controller.SetDull();
         hasSpun = false;
+
+        rightAmmoImage.sprite = hudR[ammoR];
     }
 
     private void Fire(bool isLeft) {
@@ -104,9 +124,11 @@ public class WeaponScript : MonoBehaviour
                 if (hasSpun) {
                     tempDmg *= spinMult;
                     audioControl.PlayPowerHit();
+                    startHitMarker(true);
                 }
                 else {
                     audioControl.PlayHit();
+                    startHitMarker(false);
                 }
                 Health healthScript = hit.collider.gameObject.GetComponentInParent<Health>();
                 healthScript.damageEntity(tempDmg);
@@ -184,6 +206,12 @@ public class WeaponScript : MonoBehaviour
         }
 
         InvokeRepeating("UpdateSpin", 0.1f, (spinTimeLimit / spinResolution));
+
+        leftAmmoImage = leftAmmoHUD.GetComponent<Image>();
+        rightAmmoImage = rightAmmoHUD.GetComponent<Image>();
+        hitSpriteImage = marker.GetComponent<Image>();
+        hitMarkerDuration = 0.2f;
+        currentHitMarkerTime = -1f;
     }
 
     // Update is called once per frame
@@ -204,7 +232,20 @@ public class WeaponScript : MonoBehaviour
                 ammoL = maxAmmo;
                 ammoR = maxAmmo;
                 reloading = false;
+                leftAmmoImage.sprite = hudL[ammoL];
+                rightAmmoImage.sprite = hudR[ammoR];
             }
+        }
+
+        if (currentHitMarkerTime > 0f)
+        {
+            currentHitMarkerTime -= Time.deltaTime;
+        }
+
+        if (currentHitMarkerTime <= 0f && currentHitMarkerTime > -1f)
+        {
+            currentHitMarkerTime = -1f;
+            marker.SetActive(false);
         }
 
     }
@@ -219,6 +260,19 @@ public class WeaponScript : MonoBehaviour
         smokeObj.transform.localScale = new Vector3(smokeObj.transform.localScale.x, smokeVector.magnitude / 2, smokeObj.transform.localScale.z);
 
         yield break;
+    }
+
+    void startHitMarker(bool big)
+    {
+        marker.SetActive(true);
+        if (big)
+        {
+            hitSpriteImage.sprite = bigHitSprite;
+        } else
+        {
+            hitSpriteImage.sprite = hitSprite;
+        }
+        currentHitMarkerTime = hitMarkerDuration;
     }
 
 }
