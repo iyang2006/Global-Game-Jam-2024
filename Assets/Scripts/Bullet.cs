@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    Vector3 bulletVector;
+    public Vector3 bulletVector;
 
     // Start is called before the first frame update
     void Start()
@@ -26,13 +26,8 @@ public class Bullet : MonoBehaviour
         }
         if (other.gameObject.tag == "player")
         {
-            // do damage to player
+            other.gameObject.GetComponent<Health>().damageEntity(20);
             Destroy(gameObject);
         }
-    }
-
-    public void GetBulletVector(Vector3 bulletVector)
-    {
-        this.bulletVector = bulletVector;
     }
 }

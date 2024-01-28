@@ -16,7 +16,8 @@ public class KeyboardCat : MonoBehaviour
     {
         // Find player
         player = GameObject.FindGameObjectWithTag("player");
-
+        
+        // Start shooting if it sees player
         StartCoroutine(waiting());
     }
 
@@ -24,13 +25,6 @@ public class KeyboardCat : MonoBehaviour
     void Update()
     {
         
-    }
-
-    // Shoots player
-    void Shoot(Vector3 bulletVector, RaycastHit hit)
-    {
-        GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.LookRotation(hit.normal, Vector3.forward));
-        bullet.GetComponent<Bullet>().GetBulletVector(bulletVector);
     }
 
     IEnumerator waiting()
@@ -47,7 +41,12 @@ public class KeyboardCat : MonoBehaviour
             {
                 if (hit.transform.gameObject.tag == "player")
                 {
-                    Shoot(bulletVector, hit);
+                    // play sound queue
+
+                    // Shoot player
+                    GameObject bullet = Instantiate(bulletPrefab, transform.position,
+                                Quaternion.LookRotation(hit.normal, Vector3.up));
+                    bullet.GetComponent<Bullet>().bulletVector = bulletVector;
                 }
             }
             yield return new WaitForSeconds(waitTime);

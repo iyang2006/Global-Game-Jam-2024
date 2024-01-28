@@ -16,6 +16,7 @@ public class WeaponScript : MonoBehaviour
     [SerializeField] private float maxRange;
     [SerializeField] private float coolDown;
     [SerializeField] private float reloadLength;
+    [SerializeField] private GunController controller;
     
     private int ammoL;
     private int ammoR;
@@ -43,6 +44,7 @@ public class WeaponScript : MonoBehaviour
         else if ((Time.time - lastLeft > coolDown) && (reloading == false)) {
             ammoL -= 1;
             lastLeft = Time.time;
+            controller.ShootLeft();
             Fire();
         }
         hasSpun = false;
@@ -55,6 +57,7 @@ public class WeaponScript : MonoBehaviour
         else if ((Time.time - lastRight > coolDown) && (reloading == false)) {
             ammoR -= 1;
             lastRight = Time.time;
+            controller.ShootRight();
             Fire();
         }
         hasSpun = false;
