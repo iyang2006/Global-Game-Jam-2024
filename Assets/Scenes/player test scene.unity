@@ -1313,12 +1313,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7755479058080337956}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1303760991 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7357718041436208196, guid: 6afd18e02e23de247862cb9263140148,
-    type: 3}
-  m_PrefabInstance: {fileID: 7755479058080337956}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1303760992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1331,11 +1325,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a8ad1e4629be8f4db2a8f7fd9bf3f75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTransform: {fileID: 1303760991}
   cameraTransform: {fileID: 229127887}
   damage: 50
-  spinTimeLimit: 0
-  spinMult: 0
+  spinTimeLimit: 0.5
+  spinResolution: 100
+  spinShootTimeLimit: 2
+  spinMult: 3
   maxAmmo: 5
   maxRange: 9000
   coolDown: 0.5
@@ -2053,6 +2048,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2131651855057703940, guid: 6afd18e02e23de247862cb9263140148,
+        type: 3}
+      propertyPath: wScript
+      value: 
+      objectReference: {fileID: 1303760992}
+    - target: {fileID: 2131651855057703940, guid: 6afd18e02e23de247862cb9263140148,
+        type: 3}
+      propertyPath: xSensitivity
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 7357718041436208196, guid: 6afd18e02e23de247862cb9263140148,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Rigidbody playerBody;
     [SerializeField] private Camera cam;
     [SerializeField] private Transform camTransform;
+    [SerializeField] WeaponScript wScript;
     [SerializeField] private float speed;
     [SerializeField] private float jumpStrength;
     [SerializeField] private float dashStrength;
@@ -65,6 +66,13 @@ public class PlayerMovement : MonoBehaviour
         if (inDash == false) {
             //looking
             turning.x += Input.GetAxisRaw("Mouse X") * xSensitivity;
+            //Debug.Log(Input.GetAxis("Mouse X"));
+            if (Input.GetAxis("Mouse X") < 0) {
+                wScript.SetTurningLeft(true);
+            }
+            else if (Input.GetAxis("Mouse X") > 0) {
+                wScript.SetTurningLeft(false);
+            }
             turning.y += Input.GetAxisRaw("Mouse Y") * ySensitivity;
             if (turning.y < -90) {
                 turning.y = -90;
