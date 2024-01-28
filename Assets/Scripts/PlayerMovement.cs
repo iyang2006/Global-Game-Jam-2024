@@ -122,7 +122,6 @@ public class PlayerMovement : MonoBehaviour
             if (Time.time - prevDash > dashLength) {
                 inDash = false;
                 playerBody.useGravity = true;
-                Debug.Log(cam.fieldOfView);
                 cam.fieldOfView = 60;
             }
         }

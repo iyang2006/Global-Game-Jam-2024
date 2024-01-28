@@ -6,9 +6,9 @@ using UnityEngine;
 public class EnemyAttack : MonoBehaviour
 {
 
-    [SerializeField] float attackDamage;
-    [SerializeField] float attackCooldown;
-    float currentCooldown;
+    [SerializeField] public float attackDamage;
+    [SerializeField] public float attackCooldown;
+    public float currentCooldown;
 
     // Start is called before the first frame update
     void Start()

@@ -6,11 +6,16 @@ public class EnemySprite : MonoBehaviour
 {
 
     private Transform dummyPlayer;
-    [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private Sprite[] sprites;
-    [SerializeField] private float spriteLoopTime;
-    private float currentTime;
-    private int spriteIndex;
+    [SerializeField] public SpriteRenderer spriteRenderer;
+    [SerializeField] public Sprite[] sprites;
+    [SerializeField] public float spriteLoopTime;
+    [SerializeField] public Sprite[] chargingSprites;
+    [SerializeField] public float chargingSpriteLoopTime;
+    public float currentTime;
+    public float currentChargingTime;
+    public int spriteIndex;
+    public int chargingSpriteIndex;
+    public bool isCharging;
 
     // Start is called before the first frame update
     void Start()
@@ -18,25 +23,48 @@ public class EnemySprite : MonoBehaviour
         dummyPlayer = GameObject.FindWithTag("dummyPlayer").GetComponent<Transform>();
         spriteRenderer.sprite = sprites[0];
         spriteIndex = 0;
+        chargingSpriteIndex = 0;
         currentTime = spriteLoopTime;
+        currentChargingTime = chargingSpriteLoopTime;
+        isCharging = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (dummyPlayer != null)
+
+        if (currentChargingTime <= 0 && isCharging)
         {
-            //transform.LookAt(mainCam.transform.position);
+            currentChargingTime = chargingSpriteLoopTime;
+            currentTime = 0;
+            spriteIndex = 0;
+            selectChargingSprite();
+        }
+
+        if (isCharging)
+        {
+            currentChargingTime -= Time.deltaTime;
+        }
+
+
+
+        if (dummyPlayer != null && !isCharging)
+        {
             transform.LookAt(dummyPlayer.position);
         }
 
-        if (currentTime <= 0)
+        if (currentTime <= 0 && !isCharging)
         {
+            currentChargingTime = 0;
+            chargingSpriteIndex = 0;
             currentTime = spriteLoopTime;
             selectSprite();
         }
 
-        currentTime -= Time.deltaTime;
+        if (!isCharging)
+        {
+            currentTime -= Time.deltaTime;
+        }
     }
 
     void selectSprite()
@@ -47,5 +75,14 @@ public class EnemySprite : MonoBehaviour
             spriteIndex = 0;
         }
         spriteRenderer.sprite = sprites[spriteIndex];
+    }
+    
+    void selectChargingSprite()
+    {
+        if (chargingSpriteIndex < chargingSprites.Length - 1)
+        {
+            chargingSpriteIndex++;
+        }
+        spriteRenderer.sprite = chargingSprites[chargingSpriteIndex];
     }
 }
