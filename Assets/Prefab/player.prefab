@@ -145,7 +145,7 @@ Transform:
   m_GameObject: {fileID: 851710889982844019}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5469999, y: 0.38100004, z: 2.06}
+  m_LocalPosition: {x: 0.5469999, y: 0.38100004, z: 2.081}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -327,7 +327,7 @@ Transform:
   m_GameObject: {fileID: 1837562358868706587}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.54699993, y: 0.38100004, z: 2.06}
+  m_LocalPosition: {x: -0.54699993, y: 0.38100004, z: 2.081}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -771,6 +771,10 @@ MonoBehaviour:
   audioControl: {fileID: 5464726084000875969}
   leftSniperAudio: {fileID: 3032001365514102800}
   rightSniperAudio: {fileID: 6048705445391881324}
+  smokePrefab: {fileID: 9123725795780196425, guid: 8d33bb75b1346994a8405e44da51e164,
+    type: 3}
+  leftSmokeStart: {fileID: 6493481125506547702}
+  rightSmokeStart: {fileID: 2120512101376381724}
 --- !u!114 &5464726084000875969
 MonoBehaviour:
   m_ObjectHideFlags: 0
