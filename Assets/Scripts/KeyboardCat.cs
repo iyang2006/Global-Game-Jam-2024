@@ -27,13 +27,6 @@ public class KeyboardCat : MonoBehaviour
         
     }
 
-    // Shoots player
-    void Shoot(Vector3 bulletVector, RaycastHit hit)
-    {
-        GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.LookRotation(hit.normal, Vector3.forward));
-        bullet.GetComponent<Bullet>().GetBulletVector(bulletVector);
-    }
-
     IEnumerator waiting()
     {
         while (true)
@@ -48,7 +41,12 @@ public class KeyboardCat : MonoBehaviour
             {
                 if (hit.transform.gameObject.tag == "player")
                 {
-                    Shoot(bulletVector, hit);
+                    // play sound queue
+
+                    // Shoot player
+                    GameObject bullet = Instantiate(bulletPrefab, transform.position,
+                                Quaternion.LookRotation(hit.normal, Vector3.up));
+                    bullet.GetComponent<Bullet>().GetBulletVector(bulletVector);
                 }
             }
             yield return new WaitForSeconds(waitTime);
