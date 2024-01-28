@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 1304423881456969481}
   - component: {fileID: 7219301048755587360}
   - component: {fileID: 3027435347080206606}
-  - component: {fileID: 2277117247931785032}
   m_Layer: 0
   m_Name: Shoop Da Whoop
   m_TagString: Untagged
@@ -120,11 +119,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 771a6841676dd904aaca13926d60d698, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waitTime: 2.75
+  aimTime: 2.35
   laserTime: 1.75
   layerMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 256
   laserPrefab: {fileID: 4325517445681213121, guid: 550b2b8185ee98a43a63c9579a0c683c,
     type: 3}
 --- !u!114 &3027435347080206606
@@ -140,30 +139,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maximumHealth: 300
---- !u!54 &2277117247931785032
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2091152445851272518}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0

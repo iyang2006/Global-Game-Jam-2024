@@ -30,23 +30,22 @@ public class ShoopDaWhoop : MonoBehaviour
     {
         while (true)
         {
+            // play sound queue
+
+            yield return new WaitForSeconds(aimTime);
+
             // Find player location
             Vector3 playerVector = player.transform.position - transform.position;
 
-            // Play sound queue and fire laser
-            if (Physics.Raycast(transform.position, playerVector, out RaycastHit hit, 128, layerMask))
+            yield return new WaitForSeconds(0.4f);
+
+            // Deploy laser
+            if (Physics.Raycast(transform.position, playerVector, out RaycastHit hit, 256, layerMask))
             {
-                // play sound queue
-
-                yield return new WaitForSeconds(aimTime);
-
-                playerVector = player.transform.position - transform.position;
                 Vector3 laserVector = hit.transform.position - transform.position;
+                Debug.DrawRay(transform.position, laserVector, Color.red);
 
-                yield return new WaitForSeconds(0.4f);
-
-                // Deploy laser
-                GameObject laser = Instantiate(laserPrefab, laserVector / 2 + transform.position, 
+                GameObject laser = Instantiate(laserPrefab, laserVector / 2 + transform.position,
                             Quaternion.LookRotation(laserVector, Vector3.up));
                 laser.transform.Rotate(Vector3.right, 90, Space.Self);
                 laser.transform.localScale = new Vector3(1, laserVector.magnitude / 2, 1);
