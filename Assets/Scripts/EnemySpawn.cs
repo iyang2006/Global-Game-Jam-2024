@@ -254,7 +254,6 @@ public class EnemySpawn : MonoBehaviour
     void SpawnPepe()
     {
         Instantiate(Pepe, pepeSpawns[Random.Range(0, pepeSpawns.Length - 1)], Quaternion.identity);
-        Debug.Log("pepe spawned");
     }
 
     void SpawnKeyboardCat()

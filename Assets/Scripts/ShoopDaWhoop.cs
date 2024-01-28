@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ShoopDaWhoop : MonoBehaviour
 {
+    public AudioSource audioSource;
+    public AudioClip audioClipIMMA, audioClipBAH;
     private GameObject player;
     [SerializeField] float aimTime;
     [SerializeField] float laserTime;
@@ -32,7 +34,9 @@ public class ShoopDaWhoop : MonoBehaviour
         while (true)
         {
             
-            // play sound queue
+            // Play sound queue
+            audioSource.clip = audioClipIMMA;
+            audioSource.Play();
 
             yield return new WaitForSeconds(aimTime);
 
@@ -42,6 +46,8 @@ public class ShoopDaWhoop : MonoBehaviour
             yield return new WaitForSeconds(0.4f);
 
             // Deploy laser
+            audioSource.clip = audioClipBAH;
+            audioSource.Play();
             if (Physics.Raycast(transform.position, playerVector, out RaycastHit hit, 256, layerMask))
             {
                 enemySprite.isCharging = true;

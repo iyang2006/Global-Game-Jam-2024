@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TrollFace : MonoBehaviour
 {
+    public AudioSource audioSourceAttack;
 
     [SerializeField] EnemySprite enemySprite;
     [SerializeField] EnemyMovement enemyMovement;
@@ -56,6 +57,8 @@ public class TrollFace : MonoBehaviour
         //Windup
         if (currentWindup <= 0 && currentWindup > -1)
         {
+            audioSourceAttack.Play();
+
             currentWindup = -1;
             currentDuration = chargeDuration;
 

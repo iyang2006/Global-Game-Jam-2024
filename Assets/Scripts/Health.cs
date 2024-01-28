@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
-
+    public AudioSource audioSource;
     [SerializeField] public int maximumHealth;
     //[SerializeField] private GameObject healthText;
     //private TextMeshProUGUI healthBar;
@@ -63,6 +63,7 @@ public class Health : MonoBehaviour
     /// </summary>
     public void kill()
     {
+        audioSource.Play();
         Destroy(gameObject);
     }
 
