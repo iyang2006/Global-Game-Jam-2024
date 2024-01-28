@@ -829,6 +829,16 @@ PrefabInstance:
       propertyPath: xSensitivity
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4180784734295003762, guid: 6afd18e02e23de247862cb9263140148,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4180784734295003762, guid: 6afd18e02e23de247862cb9263140148,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6493481125506547702, guid: 6afd18e02e23de247862cb9263140148,
         type: 3}
       propertyPath: m_LocalPosition.z
