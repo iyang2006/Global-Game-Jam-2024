@@ -26,8 +26,8 @@ Transform:
   m_GameObject: {fileID: 24436587764571613}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalPosition: {x: 0, y: 2.4, z: 0}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7306621477234029583}
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 30bfcb2e9792b5042b96ea403046f388, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8504c220cf9bee047b244a776290223a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3687094356369103162}
   - component: {fileID: 2530600867200207241}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Hitbox
   m_TagString: enemy
   m_Icon: {fileID: 0}
@@ -111,7 +111,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.1, y: 1.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7306621477234029583}
@@ -214,10 +214,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 7543077490724018686}
   sprites:
-  - {fileID: 21300000, guid: 30bfcb2e9792b5042b96ea403046f388, type: 3}
-  spriteLoopTime: 99999
+  - {fileID: 21300000, guid: 8504c220cf9bee047b244a776290223a, type: 3}
+  spriteLoopTime: 0.15
+  chargingSprites:
+  - {fileID: 21300000, guid: c784ae31c2a07304dbd8c168bf8e50f8, type: 3}
+  - {fileID: 21300000, guid: 4ed988523369e8843abca622117b42e6, type: 3}
+  - {fileID: 21300000, guid: 546f279e8ea91f84c8430c6f15f395d4, type: 3}
+  - {fileID: 21300000, guid: 60836986694c5ef45ae25137d80fa698, type: 3}
+  - {fileID: 21300000, guid: aaaaf6223e50ba948b86f75ab509ef27, type: 3}
+  - {fileID: 21300000, guid: 174175e6f74d6604c999cbb4799cc3a0, type: 3}
+  - {fileID: 21300000, guid: b788591e577e03545add561ad279de0f, type: 3}
+  chargingSpriteLoopTime: 0.1
   currentTime: 0
+  currentChargingTime: 0
   spriteIndex: 0
+  chargingSpriteIndex: 0
   isCharging: 0
 --- !u!135 &451456137900919474
 SphereCollider:
@@ -324,11 +335,11 @@ MonoBehaviour:
   enemySprite: {fileID: 4379514015141268545}
   enemyMovement: {fileID: 2647038401122636711}
   enemyAttack: {fileID: 881111948201973560}
-  chargeWindUp: 1.2
+  chargeWindUp: 0.8
   chargeDuration: 1
   chargeSpeed: 80
-  maxChargeCooldown: 4.5
-  minChargeCooldown: 6.5
+  maxChargeCooldown: 3
+  minChargeCooldown: 8
   chargeCooldown: 5
   currentWindup: 0
   currentDuration: 0

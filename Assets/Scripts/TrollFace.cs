@@ -41,6 +41,8 @@ public class TrollFace : MonoBehaviour
         //Cooldown
         if (currentCooldown <= 0 && currentCooldown > -1)
         {
+            enemySprite.isCharging = true;
+            enemyMovement.isCharging = true;
             chargeCooldown = Random.Range(minChargeCooldown, maxChargeCooldown);
             currentCooldown = -1;
             currentWindup = chargeWindUp;
