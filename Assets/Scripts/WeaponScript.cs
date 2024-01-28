@@ -49,6 +49,7 @@ public class WeaponScript : MonoBehaviour
         }
         controller.SetDull();
         hasSpun = false;
+
     }
 
     private void FireRight() {

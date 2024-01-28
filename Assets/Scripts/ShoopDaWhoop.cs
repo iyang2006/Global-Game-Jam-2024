@@ -9,6 +9,7 @@ public class ShoopDaWhoop : MonoBehaviour
     [SerializeField] float laserTime;
     [SerializeField] LayerMask layerMask;
     [SerializeField] GameObject laserPrefab;
+    [SerializeField] EnemySprite enemySprite;
 
     // Start is called before the first frame update
     void Start()
@@ -43,17 +44,21 @@ public class ShoopDaWhoop : MonoBehaviour
             // Deploy laser
             if (Physics.Raycast(transform.position, playerVector, out RaycastHit hit, 256, layerMask))
             {
+                enemySprite.isCharging = true;
+
                 Vector3 laserVector = hit.point - transform.position;
                 Debug.DrawRay(transform.position, laserVector, Color.red);
 
                 GameObject laser = Instantiate(laserPrefab, laserVector / 2 + transform.position,
                             Quaternion.LookRotation(laserVector, Vector3.up));
                 laser.transform.Rotate(Vector3.right, 90, Space.Self);
-                laser.transform.localScale = new Vector3(1, laserVector.magnitude / 2, 1);
+                laser.transform.localScale = new Vector3(5, laserVector.magnitude / 2, 5);
 
                 yield return new WaitForSeconds(laserTime);
 
                 Destroy(laser);
+
+                enemySprite.isCharging = false;
             }
         }
     }
