@@ -1,11 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
 
-    [SerializeField] private int maximumHealth;
+    [SerializeField] public int maximumHealth;
+    //[SerializeField] private GameObject healthText;
+    //private TextMeshProUGUI healthBar;
+    [SerializeField] private GameObject healthBar;
+    private Slider healthSlider;
     private float currentHealth;
 
 
@@ -13,6 +19,13 @@ public class Health : MonoBehaviour
     void Start()
     {
         currentHealth = maximumHealth;
+        healthSlider = healthBar.GetComponent<Slider>();
+        setSlider();
+        /*healthBar = healthText.GetComponent<TextMeshProUGUI>();
+        if (healthBar != null )
+        {
+            healthBar.text = "" + currentHealth;
+        }*/
     }
 
 
@@ -35,6 +48,11 @@ public class Health : MonoBehaviour
         {
             kill();
         }
+        setSlider();
+        /*if (healthBar != null)
+        {
+            healthBar.text = "" + currentHealth;
+        }*/
         return damageDealt;
     }
 
@@ -64,6 +82,11 @@ public class Health : MonoBehaviour
     {
         float healingDealt = (currentHealth + healing >= maximumHealth) ? maximumHealth - currentHealth : healing;
         currentHealth += healingDealt;
+        setSlider();
+        /*if (healthBar != null)
+        {
+            healthBar.text = "" + currentHealth;
+        }*/
         return healingDealt;
     }
 
@@ -73,6 +96,13 @@ public class Health : MonoBehaviour
     void Update()
     {
 
+    }
+
+    void setSlider()
+    {
+        if (healthSlider != null) {
+            healthSlider.value = currentHealth / maximumHealth;
+        }
     }
 }
 
