@@ -72,12 +72,13 @@ public class EnemySpawn : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(Level1());
+        StartCoroutine(Level1to4());
     }
 
     // Update is called once per frame
     void Update()
     {
+        /*
         // Updates wait times inbetween waves
         if (waitTime > 0)
         {
@@ -245,39 +246,7 @@ public class EnemySpawn : MonoBehaviour
         {
             Debug.LogError("Level is not waiting inbetween waves nor spawning enemies", gameObject);
         }
-
-
-        for (int i = 0; i < level1Wave1Spawns[0]; i++) SpawnPepe();
-        for (int i = 0; i < level1Wave1Spawns[1]; i++) SpawnKeyboardCat();
-        for (int i = 0; i < level1Wave1Spawns[2]; i++) SpawnTroll();
-        for (int i = 0; i < level1Wave1Spawns[3]; i++) SpawnShoopDaWhoop();
-
-        while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) ;
-        //yield return new WaitForSeconds(AfterWaveWaitTime());
-
-        for (int i = 0; i < level1Wave2Spawns[0]; i++) SpawnPepe();
-        for (int i = 0; i < level1Wave2Spawns[1]; i++) SpawnKeyboardCat();
-        for (int i = 0; i < level1Wave2Spawns[2]; i++) SpawnTroll();
-        for (int i = 0; i < level1Wave2Spawns[3]; i++) SpawnShoopDaWhoop();
-
-        while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) ;
-        //yield return new WaitForSeconds(AfterWaveWaitTime());
-
-        for (int i = 0; i < level1Wave3Spawns[0]; i++) SpawnPepe();
-        for (int i = 0; i < level1Wave3Spawns[1]; i++) SpawnKeyboardCat();
-        for (int i = 0; i < level1Wave3Spawns[2]; i++) SpawnTroll();
-        for (int i = 0; i < level1Wave3Spawns[3]; i++) SpawnShoopDaWhoop();
-
-        while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) ;
-        //yield return new WaitForSeconds(AfterWaveWaitTime());
-
-        for (int i = 0; i < level1Wave4Spawns[0]; i++) SpawnPepe();
-        for (int i = 0; i < level1Wave4Spawns[1]; i++) SpawnKeyboardCat();
-        for (int i = 0; i < level1Wave4Spawns[2]; i++) SpawnTroll();
-        for (int i = 0; i < level1Wave4Spawns[3]; i++) SpawnShoopDaWhoop();
-
-        while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) ;
-        //yield return new WaitForSeconds(AfterLevelWaitTime());
+        */
     }
 
     // if we want to manually involve spawn locations, change method to have parameters of vectors, and
@@ -285,6 +254,7 @@ public class EnemySpawn : MonoBehaviour
     void SpawnPepe()
     {
         Instantiate(Pepe, pepeSpawns[Random.Range(0, pepeSpawns.Length - 1)], Quaternion.identity);
+        Debug.Log("pepe spawned");
     }
 
     void SpawnKeyboardCat()
@@ -316,14 +286,15 @@ public class EnemySpawn : MonoBehaviour
         return time;
     }
 
-    IEnumerator Level1()
+    IEnumerator Level1to4()
     {
-        for (int i = 0; i < level1Wave1Spawns[0]; i++) SpawnPepe();
+        // Level 1
+        /*for (int i = 0; i < level1Wave1Spawns[0]; i++) SpawnPepe();
         for (int i = 0; i < level1Wave1Spawns[1]; i++) SpawnKeyboardCat();
         for (int i = 0; i < level1Wave1Spawns[2]; i++) SpawnTroll();
         for (int i = 0; i < level1Wave1Spawns[3]; i++) SpawnShoopDaWhoop();
 
-        while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) ;
+        while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) yield return new WaitForSeconds(0.1f);
         yield return new WaitForSeconds(AfterWaveWaitTime());
 
         for (int i = 0; i < level1Wave2Spawns[0]; i++) SpawnPepe();
@@ -331,7 +302,7 @@ public class EnemySpawn : MonoBehaviour
         for (int i = 0; i < level1Wave2Spawns[2]; i++) SpawnTroll();
         for (int i = 0; i < level1Wave2Spawns[3]; i++) SpawnShoopDaWhoop();
 
-        while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) ;
+        while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) yield return new WaitForSeconds(0.1f);
         yield return new WaitForSeconds(AfterWaveWaitTime());
 
         for (int i = 0; i < level1Wave3Spawns[0]; i++) SpawnPepe();
@@ -339,7 +310,7 @@ public class EnemySpawn : MonoBehaviour
         for (int i = 0; i < level1Wave3Spawns[2]; i++) SpawnTroll();
         for (int i = 0; i < level1Wave3Spawns[3]; i++) SpawnShoopDaWhoop();
 
-        while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) ;
+        while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) yield return new WaitForSeconds(0.1f);
         yield return new WaitForSeconds(AfterWaveWaitTime());
 
         for (int i = 0; i < level1Wave4Spawns[0]; i++) SpawnPepe();
@@ -347,20 +318,16 @@ public class EnemySpawn : MonoBehaviour
         for (int i = 0; i < level1Wave4Spawns[2]; i++) SpawnTroll();
         for (int i = 0; i < level1Wave4Spawns[3]; i++) SpawnShoopDaWhoop();
 
-        while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) ;
+        while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) yield return new WaitForSeconds(0.1f);
         yield return new WaitForSeconds(AfterLevelWaitTime());
 
-        StartCoroutine(Level2());
-    }
-
-    IEnumerator Level2()
-    {
+        // Level 2
         for (int i = 0; i < level2Wave1Spawns[0]; i++) SpawnPepe();
         for (int i = 0; i < level2Wave1Spawns[1]; i++) SpawnKeyboardCat();
         for (int i = 0; i < level2Wave1Spawns[2]; i++) SpawnTroll();
         for (int i = 0; i < level2Wave1Spawns[3]; i++) SpawnShoopDaWhoop();
 
-        while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) ;
+        while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) yield return new WaitForSeconds(0.1f);
         yield return new WaitForSeconds(AfterWaveWaitTime());
 
         for (int i = 0; i < level2Wave2Spawns[0]; i++) SpawnPepe();
@@ -368,36 +335,32 @@ public class EnemySpawn : MonoBehaviour
         for (int i = 0; i < level2Wave2Spawns[2]; i++) SpawnTroll();
         for (int i = 0; i < level2Wave2Spawns[3]; i++) SpawnShoopDaWhoop();
 
-        while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) ;
+        while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) yield return new WaitForSeconds(0.1f);
         yield return new WaitForSeconds(AfterWaveWaitTime());
 
         for (int i = 0; i < level2Wave3Spawns[0]; i++) SpawnPepe();
         for (int i = 0; i < level2Wave3Spawns[1]; i++) SpawnKeyboardCat();
         for (int i = 0; i < level2Wave3Spawns[2]; i++) SpawnTroll();
         for (int i = 0; i < level2Wave3Spawns[3]; i++) SpawnShoopDaWhoop();
-
-        while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) ;
+        
+        while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) yield return new WaitForSeconds(0.1f);
         yield return new WaitForSeconds(AfterWaveWaitTime());
-
+        */
         for (int i = 0; i < level2Wave4Spawns[0]; i++) SpawnPepe();
         for (int i = 0; i < level2Wave4Spawns[1]; i++) SpawnKeyboardCat();
         for (int i = 0; i < level2Wave4Spawns[2]; i++) SpawnTroll();
         for (int i = 0; i < level2Wave4Spawns[3]; i++) SpawnShoopDaWhoop();
 
-        while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) ;
+        while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) yield return new WaitForSeconds(0.1f);
         yield return new WaitForSeconds(AfterLevelWaitTime());
 
-        StartCoroutine(Level3());
-    }
-
-    IEnumerator Level3()
-    {
+        // Level 3
         for (int i = 0; i < level3Wave1Spawns[0]; i++) SpawnPepe();
         for (int i = 0; i < level3Wave1Spawns[1]; i++) SpawnKeyboardCat();
         for (int i = 0; i < level3Wave1Spawns[2]; i++) SpawnTroll();
         for (int i = 0; i < level3Wave1Spawns[3]; i++) SpawnShoopDaWhoop();
 
-        while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) ;
+        while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) yield return new WaitForSeconds(0.1f);
         yield return new WaitForSeconds(AfterWaveWaitTime());
 
         for (int i = 0; i < level3Wave2Spawns[0]; i++) SpawnPepe();
@@ -405,7 +368,7 @@ public class EnemySpawn : MonoBehaviour
         for (int i = 0; i < level3Wave2Spawns[2]; i++) SpawnTroll();
         for (int i = 0; i < level3Wave2Spawns[3]; i++) SpawnShoopDaWhoop();
 
-        while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) ;
+        while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) yield return new WaitForSeconds(0.1f);
         yield return new WaitForSeconds(AfterWaveWaitTime());
 
         for (int i = 0; i < level3Wave3Spawns[0]; i++) SpawnPepe();
@@ -413,7 +376,7 @@ public class EnemySpawn : MonoBehaviour
         for (int i = 0; i < level3Wave3Spawns[2]; i++) SpawnTroll();
         for (int i = 0; i < level3Wave3Spawns[3]; i++) SpawnShoopDaWhoop();
 
-        while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) ;
+        while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) yield return new WaitForSeconds(0.1f);
         yield return new WaitForSeconds(AfterWaveWaitTime());
 
         for (int i = 0; i < level3Wave4Spawns[0]; i++) SpawnPepe();
@@ -421,20 +384,16 @@ public class EnemySpawn : MonoBehaviour
         for (int i = 0; i < level3Wave4Spawns[2]; i++) SpawnTroll();
         for (int i = 0; i < level3Wave4Spawns[3]; i++) SpawnShoopDaWhoop();
 
-        while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) ;
+        while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) yield return new WaitForSeconds(0.1f);
         yield return new WaitForSeconds(AfterLevelWaitTime());
 
-        StartCoroutine(Level4());
-    }
-
-    IEnumerator Level4()
-    {
+        // Level 4
         for (int i = 0; i < level4Wave1Spawns[0]; i++) SpawnPepe();
         for (int i = 0; i < level4Wave1Spawns[1]; i++) SpawnKeyboardCat();
         for (int i = 0; i < level4Wave1Spawns[2]; i++) SpawnTroll();
         for (int i = 0; i < level4Wave1Spawns[3]; i++) SpawnShoopDaWhoop();
 
-        while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) ;
+        while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) yield return new WaitForSeconds(0.1f);
         yield return new WaitForSeconds(AfterWaveWaitTime());
 
         for (int i = 0; i < level4Wave2Spawns[0]; i++) SpawnPepe();
@@ -442,7 +401,7 @@ public class EnemySpawn : MonoBehaviour
         for (int i = 0; i < level4Wave2Spawns[2]; i++) SpawnTroll();
         for (int i = 0; i < level4Wave2Spawns[3]; i++) SpawnShoopDaWhoop();
 
-        while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) ;
+        while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) yield return new WaitForSeconds(0.1f);
         yield return new WaitForSeconds(AfterWaveWaitTime());
 
         for (int i = 0; i < level4Wave3Spawns[0]; i++) SpawnPepe();
@@ -450,7 +409,7 @@ public class EnemySpawn : MonoBehaviour
         for (int i = 0; i < level4Wave3Spawns[2]; i++) SpawnTroll();
         for (int i = 0; i < level4Wave3Spawns[3]; i++) SpawnShoopDaWhoop();
 
-        while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) ;
+        while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) yield return new WaitForSeconds(0.1f);
         yield return new WaitForSeconds(AfterWaveWaitTime());
 
         for (int i = 0; i < level4Wave4Spawns[0]; i++) SpawnPepe();
@@ -458,6 +417,6 @@ public class EnemySpawn : MonoBehaviour
         for (int i = 0; i < level4Wave4Spawns[2]; i++) SpawnTroll();
         for (int i = 0; i < level4Wave4Spawns[3]; i++) SpawnShoopDaWhoop();
 
-        while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) ;
+        while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) yield return new WaitForSeconds(0.1f);
     }
 }
