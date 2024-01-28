@@ -18,6 +18,8 @@ public class WeaponScript : MonoBehaviour
     [SerializeField] private float reloadLength;
     [SerializeField] private GunController controller;
     [SerializeField] private PlayerAudio audioControl;
+    [SerializeField] private SniperAudio leftSniperAudio;
+    [SerializeField] private SniperAudio rightSniperAudio;
 
     
     private int ammoL;
@@ -41,11 +43,17 @@ public class WeaponScript : MonoBehaviour
 
     private void FireLeft() {
         if (ammoL <= 0) {
-            PlayNoAmmo();
+            leftSniperAudio.PlayEmpty();
         }
         else if ((Time.time - lastLeft > coolDown) && (reloading == false)) {
             ammoL -= 1;
             lastLeft = Time.time;
+            if (hasSpun) {
+                leftSniperAudio.PlayPowershot();
+            }
+            else {
+                leftSniperAudio.PlayShot();
+            }
             controller.ShootLeft();
             Fire();
         }
@@ -55,20 +63,22 @@ public class WeaponScript : MonoBehaviour
 
     private void FireRight() {
         if (ammoR <= 0) {
-            PlayNoAmmo();
+            rightSniperAudio.PlayEmpty();
         }
         else if ((Time.time - lastRight > coolDown) && (reloading == false)) {
             ammoR -= 1;
             lastRight = Time.time;
+            if (hasSpun) {
+                rightSniperAudio.PlayPowershot();
+            }
+            else {
+                rightSniperAudio.PlayShot();
+            }
             controller.ShootRight();
             Fire();
         }
         controller.SetDull();
         hasSpun = false;
-    }
-
-    private void PlayNoAmmo() {
-        Debug.Log("no ammo");
     }
 
     private void Fire() {
