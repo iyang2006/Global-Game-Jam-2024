@@ -48,6 +48,7 @@ public class WeaponScript : MonoBehaviour
             Fire();
         }
         hasSpun = false;
+
     }
 
     private void FireRight() {

@@ -34,5 +34,4 @@ public class EnemySpawn : MonoBehaviour
 
     }
 
-    void Spawn
 }

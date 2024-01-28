@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6145799988901544794}
   - component: {fileID: 6557041247625714738}
   - component: {fileID: 2430125219734864957}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cat Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,6 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aeb4dc7ceb97224ba0c5162c109d665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletVector: {x: 0, y: 0, z: 0}
 --- !u!54 &2430125219734864957
 Rigidbody:
   m_ObjectHideFlags: 0
