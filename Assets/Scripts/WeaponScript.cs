@@ -84,15 +84,15 @@ public class WeaponScript : MonoBehaviour
     private void Fire() {
         RaycastHit hit;
         if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, maxRange, playerMask)) {
-            float tempDmg = damage;
-            if (hasSpun) {
-                tempDmg *= spinMult;
-                audioControl.PlayPowerHit();
-            }
-            else {
-                audioControl.PlayHit();
-            }
             if (hit.collider.gameObject.tag == "enemy") {
+                float tempDmg = damage;
+                if (hasSpun) {
+                    tempDmg *= spinMult;
+                    audioControl.PlayPowerHit();
+                }
+                else {
+                    audioControl.PlayHit();
+                }
                 Health healthScript = hit.collider.gameObject.GetComponentInParent<Health>();
                 healthScript.damageEntity(tempDmg);
             }
@@ -115,7 +115,9 @@ public class WeaponScript : MonoBehaviour
             angles.Enqueue(0f);
         }
         controller.SetGlow();
-        audioControl.PlayPowerup();
+        if (hasSpun == false) {
+            audioControl.PlayPowerup();
+        }
         hasSpun = true;
         lastSpinTrue = Time.time;
         Debug.Log("has spun");
