@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 4276746709733236799}
   - component: {fileID: 9096509438039672676}
   - component: {fileID: 2131651855057703940}
-  - component: {fileID: -1614524282490093167}
+  - component: {fileID: 2771098397934259590}
   m_Layer: 6
   m_Name: player
   m_TagString: player
@@ -420,7 +420,7 @@ MonoBehaviour:
   ySensitivity: 3
   accel: 0.8
   footCollider: {fileID: 1565888674326255629}
---- !u!114 &-1614524282490093167
+--- !u!114 &2771098397934259590
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
