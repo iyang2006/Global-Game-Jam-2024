@@ -17,6 +17,11 @@ public class WeaponScript : MonoBehaviour
     [SerializeField] private float coolDown;
     [SerializeField] private float reloadLength;
     [SerializeField] private GunController controller;
+    [SerializeField] private PlayerAudio audioControl;
+    [SerializeField] private SniperAudio leftSniperAudio;
+    [SerializeField] private SniperAudio rightSniperAudio;
+    [SerializeField] private GameObject smokePrefab;
+
     
     private int ammoL;
     private int ammoR;
@@ -33,19 +38,29 @@ public class WeaponScript : MonoBehaviour
     private Quaternion prevQuat;
     private float lastSpinTrue;
 
+    [SerializeField] private Transform leftSmokeStart;
+    [SerializeField] private Transform rightSmokeStart;
+
     public void SetTurningLeft(bool val) {
         turningLeft = val;
     }
 
     private void FireLeft() {
+        Debug.Log("firing left");
         if (ammoL <= 0) {
-            PlayNoAmmo();
+            leftSniperAudio.PlayEmpty();
         }
         else if ((Time.time - lastLeft > coolDown) && (reloading == false)) {
             ammoL -= 1;
             lastLeft = Time.time;
+            if (hasSpun) {
+                leftSniperAudio.PlayPowershot();
+            }
+            else {
+                leftSniperAudio.PlayShot();
+            }
             controller.ShootLeft();
-            Fire();
+            Fire(true);
         }
         controller.SetDull();
         hasSpun = false;
@@ -53,39 +68,58 @@ public class WeaponScript : MonoBehaviour
     }
 
     private void FireRight() {
+        Debug.Log("firing right");
         if (ammoR <= 0) {
-            PlayNoAmmo();
+            rightSniperAudio.PlayEmpty();
         }
         else if ((Time.time - lastRight > coolDown) && (reloading == false)) {
             ammoR -= 1;
             lastRight = Time.time;
+            if (hasSpun) {
+                rightSniperAudio.PlayPowershot();
+            }
+            else {
+                rightSniperAudio.PlayShot();
+            }
             controller.ShootRight();
-            Fire();
+            Fire(false);
         }
         controller.SetDull();
         hasSpun = false;
     }
 
-    private void PlayNoAmmo() {
-        Debug.Log("no ammo");
-    }
-
-    private void Fire() {
+    private void Fire(bool isLeft) {
         RaycastHit hit;
+        Vector3 startPos;
+        if (isLeft) {
+            startPos = leftSmokeStart.position;
+        }
+        else {
+            startPos = rightSmokeStart.position;
+        }
         if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, maxRange, playerMask)) {
-            float tempDmg = damage;
-            if (hasSpun) {
-                tempDmg *= spinMult;
-            }
+            StartCoroutine(SpawnSmoke(startPos, hit.point));
             if (hit.collider.gameObject.tag == "enemy") {
+                float tempDmg = damage;
+                if (hasSpun) {
+                    tempDmg *= spinMult;
+                    audioControl.PlayPowerHit();
+                }
+                else {
+                    audioControl.PlayHit();
+                }
                 Health healthScript = hit.collider.gameObject.GetComponentInParent<Health>();
                 healthScript.damageEntity(tempDmg);
             }
+        }
+        else {
+            StartCoroutine(SpawnSmoke(startPos, startPos + (cameraTransform.forward.normalized * maxRange)));
         }
     }
 
     private void Reload() {
         if ((Time.time - lastRight > coolDown) && (Time.time - lastLeft > coolDown) && (reloading == false)) {
+            audioControl.PlayReload();
             controller.Reload();
             reloading = true;
             lastReload = Time.time;
@@ -99,14 +133,16 @@ public class WeaponScript : MonoBehaviour
             angles.Enqueue(0f);
         }
         controller.SetGlow();
+        if (hasSpun == false) {
+            audioControl.PlayPowerup();
+        }
         hasSpun = true;
         lastSpinTrue = Time.time;
-        Debug.Log("has spun");
     }
 
     private void UpdateSpin() {
         if (hasSpun && (Time.time - lastSpinTrue > spinShootTimeLimit)) {
-            Debug.Log("spin time out");
+            audioControl.PlayPowerDown();
             controller.SetDull();
             hasSpun = false;
         }
@@ -171,6 +207,18 @@ public class WeaponScript : MonoBehaviour
             }
         }
 
+    }
+
+    IEnumerator SpawnSmoke(Vector3 startPos, Vector3 endPos) {
+        //Debug.Log("spawnSmoke");
+        
+        Vector3 smokeVector = endPos - startPos;
+
+        GameObject smokeObj = Instantiate(smokePrefab, smokeVector / 2 + startPos, Quaternion.LookRotation(smokeVector, Vector3.up));
+        smokeObj.transform.Rotate(Vector3.right, 90, Space.Self);
+        smokeObj.transform.localScale = new Vector3(smokeObj.transform.localScale.x, smokeVector.magnitude / 2, smokeObj.transform.localScale.z);
+
+        yield break;
     }
 
 }

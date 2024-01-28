@@ -22,6 +22,7 @@ public class GunController : MonoBehaviour
     [SerializeField] private Material glowing;
     [SerializeField] private MeshRenderer leftMesh;
     [SerializeField] private MeshRenderer rightMesh;
+
     private float initRecoilDur;
 
     private Quaternion maxRecoilQuat;
@@ -125,7 +126,6 @@ public class GunController : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         while (Time.time - reloadStart < reloadAnimDuration) {
-            Debug.Log("wow");
             float y = Mathf.Lerp(maxReloadDip, 0, ((Time.time - reloadStart) - halfReload)/halfReload);
             sniperLeftTrans.localPosition = new Vector3(sniperLeftTrans.localPosition.x, initLeft.y - y, sniperLeftTrans.localPosition.z);
             sniperRightTrans.localPosition = new Vector3(sniperRightTrans.localPosition.x, initRight.y - y, sniperRightTrans.localPosition.z);
@@ -168,7 +168,6 @@ public class GunController : MonoBehaviour
         initRight = sniperRightTrans.localPosition;
         halfReload = 0.5f * reloadAnimDuration;
         initRecoilDur = recoilDuration - recoveryDuration;
-        Debug.Log("init recoil dur " + initRecoilDur);
         maxRecoilQuat = Quaternion.Euler(initReloadTilt.eulerAngles.x, initReloadTilt.eulerAngles.y, initReloadTilt.eulerAngles.z - maxRecoilTilt);
         maxTiltQuat = Quaternion.Euler(initReloadTilt.eulerAngles.x, initReloadTilt.eulerAngles.y, initReloadTilt.eulerAngles.z - maxReloadTilt);
     }
