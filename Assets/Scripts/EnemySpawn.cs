@@ -345,7 +345,7 @@ public class EnemySpawn : MonoBehaviour
         
         while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) yield return new WaitForSeconds(0.1f);
         yield return new WaitForSeconds(AfterWaveWaitTime());
-        */
+        
         for (int i = 0; i < level2Wave4Spawns[0]; i++) SpawnPepe();
         for (int i = 0; i < level2Wave4Spawns[1]; i++) SpawnKeyboardCat();
         for (int i = 0; i < level2Wave4Spawns[2]; i++) SpawnTroll();
@@ -378,7 +378,7 @@ public class EnemySpawn : MonoBehaviour
 
         while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) yield return new WaitForSeconds(0.1f);
         yield return new WaitForSeconds(AfterWaveWaitTime());
-
+        */
         for (int i = 0; i < level3Wave4Spawns[0]; i++) SpawnPepe();
         for (int i = 0; i < level3Wave4Spawns[1]; i++) SpawnKeyboardCat();
         for (int i = 0; i < level3Wave4Spawns[2]; i++) SpawnTroll();
