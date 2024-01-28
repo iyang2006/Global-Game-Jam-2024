@@ -2,17 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
-    public AudioSource audioSource;
+
     [SerializeField] public int maximumHealth;
     //[SerializeField] private GameObject healthText;
     //private TextMeshProUGUI healthBar;
     [SerializeField] private GameObject healthBar;
     private Slider healthSlider;
     private float currentHealth;
+
+    [SerializeField] private bool isPlayer;
+    [SerializeField] private AudioSource audio;
+    [SerializeField] private SceneSwitch switcher;
 
 
     // Start is called before the first frame update
@@ -44,6 +49,7 @@ public class Health : MonoBehaviour
     {
         float damageDealt = (currentHealth - damage <= 0f) ? currentHealth : damage;
         currentHealth -= damageDealt;
+        audio.Play();
         if (currentHealth <= 0f)
         {
             kill();
@@ -63,8 +69,12 @@ public class Health : MonoBehaviour
     /// </summary>
     public void kill()
     {
-        audioSource.Play();
-        Destroy(gameObject);
+        if (isPlayer) {
+            switcher.SwitchScene();
+        }
+        else {
+            Destroy(gameObject);
+        }
     }
 
 
