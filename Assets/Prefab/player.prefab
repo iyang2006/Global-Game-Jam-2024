@@ -270,6 +270,7 @@ GameObject:
   - component: {fileID: 9096509438039672676}
   - component: {fileID: 2131651855057703940}
   - component: {fileID: 2771098397934259590}
+  - component: {fileID: 1278479967235664860}
   m_Layer: 6
   m_Name: player
   m_TagString: player
@@ -285,7 +286,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9021605737019706309}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 7.47, y: 1.61, z: 3.441}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -410,13 +411,14 @@ MonoBehaviour:
   playerBody: {fileID: 9096509438039672676}
   cam: {fileID: 642460016448068029}
   camTransform: {fileID: 2144264195455235876}
+  wScript: {fileID: 1278479967235664860}
   speed: 10
   jumpStrength: 30
   dashStrength: 35
   dashLength: 0.3
   dashCoolDown: 1.8
   dashZoom: 10
-  xSensitivity: 3
+  xSensitivity: 30
   ySensitivity: 3
   accel: 0.8
   footCollider: {fileID: 1565888674326255629}
@@ -433,3 +435,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maximumHealth: 100
+--- !u!114 &1278479967235664860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9021605737019706309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a8ad1e4629be8f4db2a8f7fd9bf3f75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraTransform: {fileID: 2144264195455235876}
+  damage: 50
+  spinTimeLimit: 0.5
+  spinResolution: 100
+  spinShootTimeLimit: 2
+  spinMult: 3
+  maxAmmo: 5
+  maxRange: 9000
+  coolDown: 0.5
+  reloadLength: 1

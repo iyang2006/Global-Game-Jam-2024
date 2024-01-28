@@ -228,12 +228,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &229127887 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2144264195455235876, guid: 6afd18e02e23de247862cb9263140148,
-    type: 3}
-  m_PrefabInstance: {fileID: 7755479058080337956}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &231127047
 GameObject:
   m_ObjectHideFlags: 0
@@ -1307,34 +1301,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1303760984 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9021605737019706309, guid: 6afd18e02e23de247862cb9263140148,
+--- !u!114 &1303760992 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1278479967235664860, guid: 6afd18e02e23de247862cb9263140148,
     type: 3}
   m_PrefabInstance: {fileID: 7755479058080337956}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1303760992
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1303760984}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a8ad1e4629be8f4db2a8f7fd9bf3f75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraTransform: {fileID: 229127887}
-  damage: 50
-  spinTimeLimit: 0.5
-  spinResolution: 100
-  spinShootTimeLimit: 2
-  spinMult: 3
-  maxAmmo: 5
-  maxRange: 9000
-  coolDown: 0.5
-  reloadLength: 1
 --- !u!1 &1494469667
 GameObject:
   m_ObjectHideFlags: 0
@@ -2116,11 +2094,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 9021605737019706309, guid: 6afd18e02e23de247862cb9263140148,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1303760992}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6afd18e02e23de247862cb9263140148, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
