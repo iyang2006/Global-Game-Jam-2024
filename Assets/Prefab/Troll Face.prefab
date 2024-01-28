@@ -604,7 +604,7 @@ MonoBehaviour:
   enemyMovement: {fileID: 2647038401122636711}
   enemyAttack: {fileID: 881111948201973560}
   chargeWindUp: 0.8
-  chargeDuration: 1
+  chargeDuration: 0.8
   chargeSpeed: 80
   maxChargeCooldown: 3
   minChargeCooldown: 8
