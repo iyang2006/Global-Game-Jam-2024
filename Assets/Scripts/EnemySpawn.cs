@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class EnemySpawn : MonoBehaviour
 {
-    public static int level = 1;
-    public static int wave = 1;
+    public int level = 1;
+    public int wave = 1;
+    private bool go5 = false;
     private bool inWait = false;
     private float waitTime = 0;
 
@@ -36,10 +37,10 @@ public class EnemySpawn : MonoBehaviour
 
     // The arry shows how much of Pepe, Keyboard Cat, Troll, and Shoop Da Whoop to increment from
     // level 4 by at index 0, 1, 2, 3, respectively, to spawn for that modular level and wave
-    [SerializeField] int[] levelMod1Wave1Spawns = new int[8];
-    [SerializeField] int[] levelMod1Wave2Spawns = new int[8];
-    [SerializeField] int[] levelMod1Wave3Spawns = new int[8];
-    [SerializeField] int[] levelMod1Wave4Spawns = new int[8];
+    [SerializeField] int[] levelMod1Wave1Spawns = new int[4];
+    [SerializeField] int[] levelMod1Wave2Spawns = new int[4];
+    [SerializeField] int[] levelMod1Wave3Spawns = new int[4];
+    [SerializeField] int[] levelMod1Wave4Spawns = new int[4];
 
     // The array shows how much of Pepe, Keyboard Cat, Troll, and Shoop Da Whoop
     // at index 0, 1, 2, 3, repectively, to spawn for that level and wave and
@@ -78,175 +79,172 @@ public class EnemySpawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*
-        // Updates wait times inbetween waves
-        if (waitTime > 0)
+        // Checks if the first 4 levels are completed
+        if (go5)
         {
-            waitTime -= Time.deltaTime;
-        }
-        
-        // Sets wait times inbetween waves based on which wave the player is on
-        else if (waitTime <= 0 && !inWait)
-        {
-            if (wave % 4 == 0)
+            // Updates wait times inbetween waves
+            if (waitTime > 0)
             {
-                waitTime = AfterLevelWaitTime();
+                waitTime -= Time.deltaTime;
             }
 
-            else
+            // Sets wait times inbetween waves based on which wave the player is on
+            else if (waitTime <= 0 && !inWait && GameObject.FindGameObjectsWithTag("enemy").Length == 0)
             {
-                waitTime = AfterWaveWaitTime();
-            }
-
-            inWait = true;
-        }
-
-        // Spawns enemies
-        else if (waitTime <= 0 && inWait)
-        {
-            // If the current level is a multiple of 15
-            if (level % 15 == 0)
-            {
-                int increment = level / 15 - 1;
-                if (wave % 4 == 1)
-                {
-                    for (int i = 0; i < levelMod15Wave1Spawns[0] + increment * levelMod15Wave1Spawns[4]; i++) SpawnPepe();
-                    for (int i = 0; i < levelMod15Wave1Spawns[1] + increment * levelMod15Wave1Spawns[5]; i++) SpawnKeyboardCat();
-                    for (int i = 0; i < levelMod15Wave1Spawns[2] + increment * levelMod15Wave1Spawns[6]; i++) SpawnTroll();
-                    for (int i = 0; i < levelMod15Wave1Spawns[3] + increment * levelMod15Wave1Spawns[7]; i++) SpawnShoopDaWhoop();
-                }
-                if (wave % 4 == 2)
-                {
-                    for (int i = 0; i < levelMod15Wave2Spawns[0] + increment * levelMod15Wave2Spawns[4]; i++) SpawnPepe();
-                    for (int i = 0; i < levelMod15Wave2Spawns[1] + increment * levelMod15Wave2Spawns[5]; i++) SpawnKeyboardCat();
-                    for (int i = 0; i < levelMod15Wave2Spawns[2] + increment * levelMod15Wave2Spawns[6]; i++) SpawnTroll();
-                    for (int i = 0; i < levelMod15Wave2Spawns[3] + increment * levelMod15Wave2Spawns[7]; i++) SpawnShoopDaWhoop();
-                }
-                if (wave % 4 == 3)
-                {
-                    for (int i = 0; i < levelMod15Wave3Spawns[0] + increment * levelMod15Wave3Spawns[4]; i++) SpawnPepe();
-                    for (int i = 0; i < levelMod15Wave3Spawns[1] + increment * levelMod15Wave3Spawns[5]; i++) SpawnKeyboardCat();
-                    for (int i = 0; i < levelMod15Wave3Spawns[2] + increment * levelMod15Wave3Spawns[6]; i++) SpawnTroll();
-                    for (int i = 0; i < levelMod15Wave3Spawns[3] + increment * levelMod15Wave3Spawns[7]; i++) SpawnShoopDaWhoop();
-                }
                 if (wave % 4 == 0)
                 {
-                    for (int i = 0; i < levelMod15Wave4Spawns[0] + increment * levelMod15Wave4Spawns[4]; i++) SpawnPepe();
-                    for (int i = 0; i < levelMod15Wave4Spawns[1] + increment * levelMod15Wave4Spawns[5]; i++) SpawnKeyboardCat();
-                    for (int i = 0; i < levelMod15Wave4Spawns[2] + increment * levelMod15Wave4Spawns[6]; i++) SpawnTroll();
-                    for (int i = 0; i < levelMod15Wave4Spawns[3] + increment * levelMod15Wave4Spawns[7]; i++) SpawnShoopDaWhoop();
+                    waitTime = AfterLevelWaitTime();
                 }
+
+                else
+                {
+                    waitTime = AfterWaveWaitTime();
+                }
+
+                inWait = true;
             }
 
-            // If the current level is a multiple of 10
-            else if (level % 10 == 0)
+            // Spawns enemies
+            else if (waitTime <= 0 && inWait)
             {
-                int increment = level / 10 - 1;
-                if (wave % 4 == 1)
+                // If the current level is a multiple of 15
+                if (level % 15 == 0)
                 {
-                    for (int i = 0; i < levelMod10Wave1Spawns[0] + increment * levelMod10Wave1Spawns[4]; i++) SpawnPepe();
-                    for (int i = 0; i < levelMod10Wave1Spawns[1] + increment * levelMod10Wave1Spawns[5]; i++) SpawnKeyboardCat();
-                    for (int i = 0; i < levelMod10Wave1Spawns[2] + increment * levelMod10Wave1Spawns[6]; i++) SpawnTroll();
-                    for (int i = 0; i < levelMod10Wave1Spawns[3] + increment * levelMod10Wave1Spawns[7]; i++) SpawnShoopDaWhoop();
+                    int increment = level / 15 - 1;
+                    if (wave % 4 == 1)
+                    {
+                        for (int i = 0; i < levelMod15Wave1Spawns[0] + increment * levelMod15Wave1Spawns[4]; i++) SpawnPepe();
+                        for (int i = 0; i < levelMod15Wave1Spawns[1] + increment * levelMod15Wave1Spawns[5]; i++) SpawnKeyboardCat();
+                        for (int i = 0; i < levelMod15Wave1Spawns[2] + increment * levelMod15Wave1Spawns[6]; i++) SpawnTroll();
+                        for (int i = 0; i < levelMod15Wave1Spawns[3] + increment * levelMod15Wave1Spawns[7]; i++) SpawnShoopDaWhoop();
+                    }
+                    if (wave % 4 == 2)
+                    {
+                        for (int i = 0; i < levelMod15Wave2Spawns[0] + increment * levelMod15Wave2Spawns[4]; i++) SpawnPepe();
+                        for (int i = 0; i < levelMod15Wave2Spawns[1] + increment * levelMod15Wave2Spawns[5]; i++) SpawnKeyboardCat();
+                        for (int i = 0; i < levelMod15Wave2Spawns[2] + increment * levelMod15Wave2Spawns[6]; i++) SpawnTroll();
+                        for (int i = 0; i < levelMod15Wave2Spawns[3] + increment * levelMod15Wave2Spawns[7]; i++) SpawnShoopDaWhoop();
+                    }
+                    if (wave % 4 == 3)
+                    {
+                        for (int i = 0; i < levelMod15Wave3Spawns[0] + increment * levelMod15Wave3Spawns[4]; i++) SpawnPepe();
+                        for (int i = 0; i < levelMod15Wave3Spawns[1] + increment * levelMod15Wave3Spawns[5]; i++) SpawnKeyboardCat();
+                        for (int i = 0; i < levelMod15Wave3Spawns[2] + increment * levelMod15Wave3Spawns[6]; i++) SpawnTroll();
+                        for (int i = 0; i < levelMod15Wave3Spawns[3] + increment * levelMod15Wave3Spawns[7]; i++) SpawnShoopDaWhoop();
+                    }
+                    if (wave % 4 == 0)
+                    {
+                        for (int i = 0; i < levelMod15Wave4Spawns[0] + increment * levelMod15Wave4Spawns[4]; i++) SpawnPepe();
+                        for (int i = 0; i < levelMod15Wave4Spawns[1] + increment * levelMod15Wave4Spawns[5]; i++) SpawnKeyboardCat();
+                        for (int i = 0; i < levelMod15Wave4Spawns[2] + increment * levelMod15Wave4Spawns[6]; i++) SpawnTroll();
+                        for (int i = 0; i < levelMod15Wave4Spawns[3] + increment * levelMod15Wave4Spawns[7]; i++) SpawnShoopDaWhoop();
+                    }
                 }
-                if (wave % 4 == 2)
-                {
-                    for (int i = 0; i < levelMod10Wave2Spawns[0] + increment * levelMod10Wave2Spawns[4]; i++) SpawnPepe();
-                    for (int i = 0; i < levelMod10Wave2Spawns[1] + increment * levelMod10Wave2Spawns[5]; i++) SpawnKeyboardCat();
-                    for (int i = 0; i < levelMod10Wave2Spawns[2] + increment * levelMod10Wave2Spawns[6]; i++) SpawnTroll();
-                    for (int i = 0; i < levelMod10Wave2Spawns[3] + increment * levelMod10Wave2Spawns[7]; i++) SpawnShoopDaWhoop();
-                }
-                if (wave % 4 == 3)
-                {
-                    for (int i = 0; i < levelMod10Wave3Spawns[0] + increment * levelMod10Wave3Spawns[4]; i++) SpawnPepe();
-                    for (int i = 0; i < levelMod10Wave3Spawns[1] + increment * levelMod10Wave3Spawns[5]; i++) SpawnKeyboardCat();
-                    for (int i = 0; i < levelMod10Wave3Spawns[2] + increment * levelMod10Wave3Spawns[6]; i++) SpawnTroll();
-                    for (int i = 0; i < levelMod10Wave3Spawns[3] + increment * levelMod10Wave3Spawns[7]; i++) SpawnShoopDaWhoop();
-                }
-                if (wave % 4 == 0)
-                {
-                    for (int i = 0; i < levelMod10Wave4Spawns[0] + increment * levelMod10Wave4Spawns[4]; i++) SpawnPepe();
-                    for (int i = 0; i < levelMod10Wave4Spawns[1] + increment * levelMod10Wave4Spawns[5]; i++) SpawnKeyboardCat();
-                    for (int i = 0; i < levelMod10Wave4Spawns[2] + increment * levelMod10Wave4Spawns[6]; i++) SpawnTroll();
-                    for (int i = 0; i < levelMod10Wave4Spawns[3] + increment * levelMod10Wave4Spawns[7]; i++) SpawnShoopDaWhoop();
-                }
-            }
 
-            // If the current level is a multiple of 5
-            else if (level % 5 == 0)
-            {
-                int increment = level / 5 - 1;
-                if (wave % 4 == 1)
+                // If the current level is a multiple of 10
+                else if (level % 10 == 0)
                 {
-                    for (int i = 0; i < levelMod5Wave1Spawns[0] + increment * levelMod5Wave1Spawns[4]; i++) SpawnPepe();
-                    for (int i = 0; i < levelMod5Wave1Spawns[1] + increment * levelMod5Wave1Spawns[5]; i++) SpawnKeyboardCat();
-                    for (int i = 0; i < levelMod5Wave1Spawns[2] + increment * levelMod5Wave1Spawns[6]; i++) SpawnTroll();
-                    for (int i = 0; i < levelMod5Wave1Spawns[3] + increment * levelMod5Wave1Spawns[7]; i++) SpawnShoopDaWhoop();
+                    int increment = level / 10 - 1;
+                    if (wave % 4 == 1)
+                    {
+                        for (int i = 0; i < levelMod10Wave1Spawns[0] + increment * levelMod10Wave1Spawns[4]; i++) SpawnPepe();
+                        for (int i = 0; i < levelMod10Wave1Spawns[1] + increment * levelMod10Wave1Spawns[5]; i++) SpawnKeyboardCat();
+                        for (int i = 0; i < levelMod10Wave1Spawns[2] + increment * levelMod10Wave1Spawns[6]; i++) SpawnTroll();
+                        for (int i = 0; i < levelMod10Wave1Spawns[3] + increment * levelMod10Wave1Spawns[7]; i++) SpawnShoopDaWhoop();
+                    }
+                    if (wave % 4 == 2)
+                    {
+                        for (int i = 0; i < levelMod10Wave2Spawns[0] + increment * levelMod10Wave2Spawns[4]; i++) SpawnPepe();
+                        for (int i = 0; i < levelMod10Wave2Spawns[1] + increment * levelMod10Wave2Spawns[5]; i++) SpawnKeyboardCat();
+                        for (int i = 0; i < levelMod10Wave2Spawns[2] + increment * levelMod10Wave2Spawns[6]; i++) SpawnTroll();
+                        for (int i = 0; i < levelMod10Wave2Spawns[3] + increment * levelMod10Wave2Spawns[7]; i++) SpawnShoopDaWhoop();
+                    }
+                    if (wave % 4 == 3)
+                    {
+                        for (int i = 0; i < levelMod10Wave3Spawns[0] + increment * levelMod10Wave3Spawns[4]; i++) SpawnPepe();
+                        for (int i = 0; i < levelMod10Wave3Spawns[1] + increment * levelMod10Wave3Spawns[5]; i++) SpawnKeyboardCat();
+                        for (int i = 0; i < levelMod10Wave3Spawns[2] + increment * levelMod10Wave3Spawns[6]; i++) SpawnTroll();
+                        for (int i = 0; i < levelMod10Wave3Spawns[3] + increment * levelMod10Wave3Spawns[7]; i++) SpawnShoopDaWhoop();
+                    }
+                    if (wave % 4 == 0)
+                    {
+                        for (int i = 0; i < levelMod10Wave4Spawns[0] + increment * levelMod10Wave4Spawns[4]; i++) SpawnPepe();
+                        for (int i = 0; i < levelMod10Wave4Spawns[1] + increment * levelMod10Wave4Spawns[5]; i++) SpawnKeyboardCat();
+                        for (int i = 0; i < levelMod10Wave4Spawns[2] + increment * levelMod10Wave4Spawns[6]; i++) SpawnTroll();
+                        for (int i = 0; i < levelMod10Wave4Spawns[3] + increment * levelMod10Wave4Spawns[7]; i++) SpawnShoopDaWhoop();
+                    }
                 }
-                if (wave % 4 == 2)
-                {
-                    for (int i = 0; i < levelMod5Wave2Spawns[0] + increment * levelMod5Wave2Spawns[4]; i++) SpawnPepe();
-                    for (int i = 0; i < levelMod5Wave2Spawns[1] + increment * levelMod5Wave2Spawns[5]; i++) SpawnKeyboardCat();
-                    for (int i = 0; i < levelMod5Wave2Spawns[2] + increment * levelMod5Wave2Spawns[6]; i++) SpawnTroll();
-                    for (int i = 0; i < levelMod5Wave2Spawns[3] + increment * levelMod5Wave2Spawns[7]; i++) SpawnShoopDaWhoop();
-                }
-                if (wave % 4 == 3)
-                {
-                    for (int i = 0; i < levelMod5Wave3Spawns[0] + increment * levelMod5Wave3Spawns[4]; i++) SpawnPepe();
-                    for (int i = 0; i < levelMod5Wave3Spawns[1] + increment * levelMod5Wave3Spawns[5]; i++) SpawnKeyboardCat();
-                    for (int i = 0; i < levelMod5Wave3Spawns[2] + increment * levelMod5Wave3Spawns[6]; i++) SpawnTroll();
-                    for (int i = 0; i < levelMod5Wave3Spawns[3] + increment * levelMod5Wave3Spawns[7]; i++) SpawnShoopDaWhoop();
-                }
-                if (wave % 4 == 0)
-                {
-                    for (int i = 0; i < levelMod5Wave4Spawns[0] + increment * levelMod5Wave4Spawns[4]; i++) SpawnPepe();
-                    for (int i = 0; i < levelMod5Wave4Spawns[1] + increment * levelMod5Wave4Spawns[5]; i++) SpawnKeyboardCat();
-                    for (int i = 0; i < levelMod5Wave4Spawns[2] + increment * levelMod5Wave4Spawns[6]; i++) SpawnTroll();
-                    for (int i = 0; i < levelMod5Wave4Spawns[3] + increment * levelMod5Wave4Spawns[7]; i++) SpawnShoopDaWhoop();
-                }
-            }
 
-            // If the level is not a multiple of 15, 10, nor 5
-            else
-            {
-                if (wave % 4 == 1)
+                // If the current level is a multiple of 5
+                else if (level % 5 == 0)
                 {
-                    for (int i = 0; i < level4Wave1Spawns[0] + level * levelMod1Wave1Spawns[4]; i++) SpawnPepe();
-                    for (int i = 0; i < level4Wave1Spawns[1] + level * levelMod1Wave1Spawns[5]; i++) SpawnKeyboardCat();
-                    for (int i = 0; i < level4Wave1Spawns[2] + level * levelMod1Wave1Spawns[6]; i++) SpawnTroll();
-                    for (int i = 0; i < level4Wave1Spawns[3] + level * levelMod1Wave1Spawns[7]; i++) SpawnShoopDaWhoop();
+                    int increment = level / 5 - 1;
+                    if (wave % 4 == 1)
+                    {
+                        for (int i = 0; i < levelMod5Wave1Spawns[0] + increment * levelMod5Wave1Spawns[4]; i++) SpawnPepe();
+                        for (int i = 0; i < levelMod5Wave1Spawns[1] + increment * levelMod5Wave1Spawns[5]; i++) SpawnKeyboardCat();
+                        for (int i = 0; i < levelMod5Wave1Spawns[2] + increment * levelMod5Wave1Spawns[6]; i++) SpawnTroll();
+                        for (int i = 0; i < levelMod5Wave1Spawns[3] + increment * levelMod5Wave1Spawns[7]; i++) SpawnShoopDaWhoop();
+                    }
+                    if (wave % 4 == 2)
+                    {
+                        for (int i = 0; i < levelMod5Wave2Spawns[0] + increment * levelMod5Wave2Spawns[4]; i++) SpawnPepe();
+                        for (int i = 0; i < levelMod5Wave2Spawns[1] + increment * levelMod5Wave2Spawns[5]; i++) SpawnKeyboardCat();
+                        for (int i = 0; i < levelMod5Wave2Spawns[2] + increment * levelMod5Wave2Spawns[6]; i++) SpawnTroll();
+                        for (int i = 0; i < levelMod5Wave2Spawns[3] + increment * levelMod5Wave2Spawns[7]; i++) SpawnShoopDaWhoop();
+                    }
+                    if (wave % 4 == 3)
+                    {
+                        for (int i = 0; i < levelMod5Wave3Spawns[0] + increment * levelMod5Wave3Spawns[4]; i++) SpawnPepe();
+                        for (int i = 0; i < levelMod5Wave3Spawns[1] + increment * levelMod5Wave3Spawns[5]; i++) SpawnKeyboardCat();
+                        for (int i = 0; i < levelMod5Wave3Spawns[2] + increment * levelMod5Wave3Spawns[6]; i++) SpawnTroll();
+                        for (int i = 0; i < levelMod5Wave3Spawns[3] + increment * levelMod5Wave3Spawns[7]; i++) SpawnShoopDaWhoop();
+                    }
+                    if (wave % 4 == 0)
+                    {
+                        for (int i = 0; i < levelMod5Wave4Spawns[0] + increment * levelMod5Wave4Spawns[4]; i++) SpawnPepe();
+                        for (int i = 0; i < levelMod5Wave4Spawns[1] + increment * levelMod5Wave4Spawns[5]; i++) SpawnKeyboardCat();
+                        for (int i = 0; i < levelMod5Wave4Spawns[2] + increment * levelMod5Wave4Spawns[6]; i++) SpawnTroll();
+                        for (int i = 0; i < levelMod5Wave4Spawns[3] + increment * levelMod5Wave4Spawns[7]; i++) SpawnShoopDaWhoop();
+                    }
                 }
-                if (wave % 4 == 2)
-                {
-                    for (int i = 0; i < level4Wave2Spawns[0] + level * levelMod1Wave2Spawns[4]; i++) SpawnPepe();
-                    for (int i = 0; i < level4Wave2Spawns[1] + level * levelMod1Wave2Spawns[5]; i++) SpawnKeyboardCat();
-                    for (int i = 0; i < level4Wave2Spawns[2] + level * levelMod1Wave2Spawns[6]; i++) SpawnTroll();
-                    for (int i = 0; i < level4Wave2Spawns[3] + level * levelMod1Wave2Spawns[7]; i++) SpawnShoopDaWhoop();
-                }
-                if (wave % 4 == 3)
-                {
-                    for (int i = 0; i < level4Wave3Spawns[0] + level * levelMod1Wave3Spawns[4]; i++) SpawnPepe();
-                    for (int i = 0; i < level4Wave3Spawns[1] + level * levelMod1Wave3Spawns[5]; i++) SpawnKeyboardCat();
-                    for (int i = 0; i < level4Wave3Spawns[2] + level * levelMod1Wave3Spawns[6]; i++) SpawnTroll();
-                    for (int i = 0; i < level4Wave3Spawns[3] + level * levelMod1Wave3Spawns[7]; i++) SpawnShoopDaWhoop();
-                }
-                if (wave % 4 == 0)
-                {
-                    for (int i = 0; i < level4Wave4Spawns[0] + level * levelMod1Wave4Spawns[4]; i++) SpawnPepe();
-                    for (int i = 0; i < level4Wave4Spawns[1] + level * levelMod1Wave4Spawns[5]; i++) SpawnKeyboardCat();
-                    for (int i = 0; i < level4Wave4Spawns[2] + level * levelMod1Wave4Spawns[6]; i++) SpawnTroll();
-                    for (int i = 0; i < level4Wave4Spawns[3] + level * levelMod1Wave4Spawns[7]; i++) SpawnShoopDaWhoop();
-                }
-            }
 
-            inWait = false;
+                // If the level is not a multiple of 15, 10, nor 5
+                else
+                {
+                    if (wave % 4 == 1)
+                    {
+                        for (int i = 0; i < level4Wave1Spawns[0] + level * levelMod1Wave1Spawns[0]; i++) SpawnPepe();
+                        for (int i = 0; i < level4Wave1Spawns[1] + level * levelMod1Wave1Spawns[1]; i++) SpawnKeyboardCat();
+                        for (int i = 0; i < level4Wave1Spawns[2] + level * levelMod1Wave1Spawns[2]; i++) SpawnTroll();
+                        for (int i = 0; i < level4Wave1Spawns[3] + level * levelMod1Wave1Spawns[3]; i++) SpawnShoopDaWhoop();
+                    }
+                    if (wave % 4 == 2)
+                    {
+                        for (int i = 0; i < level4Wave2Spawns[0] + level * levelMod1Wave2Spawns[0]; i++) SpawnPepe();
+                        for (int i = 0; i < level4Wave2Spawns[1] + level * levelMod1Wave2Spawns[1]; i++) SpawnKeyboardCat();
+                        for (int i = 0; i < level4Wave2Spawns[2] + level * levelMod1Wave2Spawns[2]; i++) SpawnTroll();
+                        for (int i = 0; i < level4Wave2Spawns[3] + level * levelMod1Wave2Spawns[3]; i++) SpawnShoopDaWhoop();
+                    }
+                    if (wave % 4 == 3)
+                    {
+                        for (int i = 0; i < level4Wave3Spawns[0] + level * levelMod1Wave3Spawns[0]; i++) SpawnPepe();
+                        for (int i = 0; i < level4Wave3Spawns[1] + level * levelMod1Wave3Spawns[1]; i++) SpawnKeyboardCat();
+                        for (int i = 0; i < level4Wave3Spawns[2] + level * levelMod1Wave3Spawns[2]; i++) SpawnTroll();
+                        for (int i = 0; i < level4Wave3Spawns[3] + level * levelMod1Wave3Spawns[3]; i++) SpawnShoopDaWhoop();
+                    }
+                    if (wave % 4 == 0)
+                    {
+                        for (int i = 0; i < level4Wave4Spawns[0] + level * levelMod1Wave4Spawns[0]; i++) SpawnPepe();
+                        for (int i = 0; i < level4Wave4Spawns[1] + level * levelMod1Wave4Spawns[1]; i++) SpawnKeyboardCat();
+                        for (int i = 0; i < level4Wave4Spawns[2] + level * levelMod1Wave4Spawns[2]; i++) SpawnTroll();
+                        for (int i = 0; i < level4Wave4Spawns[3] + level * levelMod1Wave4Spawns[3]; i++) SpawnShoopDaWhoop();
+                    }
+                }
+
+                inWait = false;
+            }
         }
-
-        else
-        {
-            Debug.LogError("Level is not waiting inbetween waves nor spawning enemies", gameObject);
-        }
-        */
     }
 
     // if we want to manually involve spawn locations, change method to have parameters of vectors, and
@@ -288,7 +286,7 @@ public class EnemySpawn : MonoBehaviour
     IEnumerator Level1to4()
     {
         // Level 1
-        /*for (int i = 0; i < level1Wave1Spawns[0]; i++) SpawnPepe();
+        for (int i = 0; i < level1Wave1Spawns[0]; i++) SpawnPepe();
         for (int i = 0; i < level1Wave1Spawns[1]; i++) SpawnKeyboardCat();
         for (int i = 0; i < level1Wave1Spawns[2]; i++) SpawnTroll();
         for (int i = 0; i < level1Wave1Spawns[3]; i++) SpawnShoopDaWhoop();
@@ -377,7 +375,7 @@ public class EnemySpawn : MonoBehaviour
 
         while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) yield return new WaitForSeconds(0.1f);
         yield return new WaitForSeconds(AfterWaveWaitTime());
-        */
+        
         for (int i = 0; i < level3Wave4Spawns[0]; i++) SpawnPepe();
         for (int i = 0; i < level3Wave4Spawns[1]; i++) SpawnKeyboardCat();
         for (int i = 0; i < level3Wave4Spawns[2]; i++) SpawnTroll();
@@ -411,11 +409,14 @@ public class EnemySpawn : MonoBehaviour
         while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) yield return new WaitForSeconds(0.1f);
         yield return new WaitForSeconds(AfterWaveWaitTime());
 
+        
         for (int i = 0; i < level4Wave4Spawns[0]; i++) SpawnPepe();
         for (int i = 0; i < level4Wave4Spawns[1]; i++) SpawnKeyboardCat();
         for (int i = 0; i < level4Wave4Spawns[2]; i++) SpawnTroll();
         for (int i = 0; i < level4Wave4Spawns[3]; i++) SpawnShoopDaWhoop();
 
         while (GameObject.FindGameObjectsWithTag("enemy").Length != 0) yield return new WaitForSeconds(0.1f);
+        
+        go5 = true;
     }
 }
