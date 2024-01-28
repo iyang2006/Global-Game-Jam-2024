@@ -1947,6 +1947,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1278479967235664860, guid: 6afd18e02e23de247862cb9263140148,
         type: 3}
+      propertyPath: spinResolution
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1278479967235664860, guid: 6afd18e02e23de247862cb9263140148,
+        type: 3}
       propertyPath: spinShootTimeLimit
       value: 0.5
       objectReference: {fileID: 0}
@@ -1957,8 +1962,13 @@ PrefabInstance:
       objectReference: {fileID: 1303760992}
     - target: {fileID: 2131651855057703940, guid: 6afd18e02e23de247862cb9263140148,
         type: 3}
-      propertyPath: xSensitivity
+      propertyPath: jumpStrength
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2131651855057703940, guid: 6afd18e02e23de247862cb9263140148,
+        type: 3}
+      propertyPath: xSensitivity
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2797821778690112165, guid: 6afd18e02e23de247862cb9263140148,
         type: 3}
@@ -1968,7 +1978,7 @@ PrefabInstance:
     - target: {fileID: 6807681186615774765, guid: 6afd18e02e23de247862cb9263140148,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.15
+      value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: 7357718041436208196, guid: 6afd18e02e23de247862cb9263140148,
         type: 3}

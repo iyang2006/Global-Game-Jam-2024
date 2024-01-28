@@ -24,15 +24,16 @@ public class GunController : MonoBehaviour
     [SerializeField] private MeshRenderer rightMesh;
     private float initRecoilDur;
 
-
+    private Quaternion maxRecoilQuat;
     private Quaternion maxTiltQuat;
 
-    private float initReloadDip;
     private Quaternion initReloadTilt;
     private Vector3 initLeft;
     private Vector3 initRight;
     private float reloadStart;
     private float halfReload;
+    private float shootLeftStart;
+    private float shootRightStart;
 
 
     public void SetDull() {
@@ -45,33 +46,57 @@ public class GunController : MonoBehaviour
         rightMesh.material = glowing;
     }
     public void ShootLeft() {
+        shootLeftStart = Time.time;
         StartCoroutine(FlashLeft());
         StartCoroutine(LeftAnim());
     }
 
     public void ShootRight() {
-       StartCoroutine(FlashRight());
+        shootRightStart = Time.time;
+        StartCoroutine(FlashRight());
+        StartCoroutine(RightAnim());
     }
 
     IEnumerator LeftAnim() {
-        while (Time.time - reloadStart < halfReload) {
-            float y = Mathf.Lerp(0, maxReloadDip, (Time.time - reloadStart)/halfReload);
-            sniperLeftTrans.localPosition = new Vector3(sniperLeftTrans.localPosition.x, initLeft.y - y, sniperLeftTrans.localPosition.z);
-            sniperRightTrans.localPosition = new Vector3(sniperRightTrans.localPosition.x, initRight.y - y, sniperRightTrans.localPosition.z);
+        while (Time.time - shootLeftStart < initRecoilDur) {
+            float z = Mathf.Lerp(0, maxRecoilBack, (Time.time - shootLeftStart)/initRecoilDur);
+            sniperLeftTrans.localPosition = new Vector3(sniperLeftTrans.localPosition.x, sniperLeftTrans.localPosition.y, initLeft.z - z);
 
-            Quaternion tempRot = Quaternion.Slerp(initReloadTilt, maxTiltQuat, (Time.time - reloadStart)/halfReload);
+            Quaternion tempRot = Quaternion.Slerp(initReloadTilt, maxRecoilQuat, (Time.time - shootLeftStart)/initRecoilDur);
             sniperLeftTrans.localRotation = tempRot;
+
+            yield return new WaitForEndOfFrame();
+        }
+        while (Time.time - shootLeftStart < recoilDuration) {
+            float z = Mathf.Lerp(maxRecoilBack, 0, (Time.time - shootLeftStart - initRecoilDur)/recoveryDuration);
+            sniperLeftTrans.localPosition = new Vector3(sniperLeftTrans.localPosition.x, sniperLeftTrans.localPosition.y, initLeft.z - z);
+
+            Quaternion tempRot = Quaternion.Slerp(maxRecoilQuat, initReloadTilt, (Time.time - shootLeftStart - initRecoilDur)/recoveryDuration);
+            sniperLeftTrans.localRotation = tempRot;
+
+            yield return new WaitForEndOfFrame();
+        }
+
+        sniperLeftTrans.localPosition = initLeft;
+        sniperLeftTrans.localRotation = initReloadTilt;
+        yield break;
+    }
+
+    IEnumerator RightAnim() {
+        while (Time.time - shootRightStart < initRecoilDur) {
+            float z = Mathf.Lerp(0, maxRecoilBack, (Time.time - shootRightStart)/initRecoilDur);
+            sniperRightTrans.localPosition = new Vector3(sniperRightTrans.localPosition.x, sniperRightTrans.localPosition.y, initRight.z - z);
+
+            Quaternion tempRot = Quaternion.Slerp(initReloadTilt, maxRecoilQuat, (Time.time - shootRightStart)/initRecoilDur);
             sniperRightTrans.localRotation = tempRot;
 
             yield return new WaitForEndOfFrame();
         }
-        while (Time.time - reloadStart < reloadAnimDuration) {
-            float y = Mathf.Lerp(maxReloadDip, 0, (Time.time - reloadStart - halfReload)/halfReload);
-            sniperLeftTrans.localPosition = new Vector3(sniperLeftTrans.localPosition.x, initLeft.y - y, sniperLeftTrans.localPosition.z);
-            sniperRightTrans.localPosition = new Vector3(sniperRightTrans.localPosition.x, initRight.y - y, sniperRightTrans.localPosition.z);
+        while (Time.time - shootRightStart < recoilDuration) {
+            float z = Mathf.Lerp(maxRecoilBack, 0, (Time.time - shootRightStart - initRecoilDur)/recoveryDuration);
+            sniperRightTrans.localPosition = new Vector3(sniperRightTrans.localPosition.x, sniperRightTrans.localPosition.y, initRight.z - z);
 
-            Quaternion tempRot = Quaternion.Slerp(maxTiltQuat, initReloadTilt, (Time.time - reloadStart - halfReload)/halfReload);
-            sniperLeftTrans.localRotation = tempRot;
+            Quaternion tempRot = Quaternion.Slerp(maxRecoilQuat, initReloadTilt, (Time.time - shootRightStart - initRecoilDur)/recoveryDuration);
             sniperRightTrans.localRotation = tempRot;
 
             yield return new WaitForEndOfFrame();
@@ -79,7 +104,7 @@ public class GunController : MonoBehaviour
 
         sniperLeftTrans.localPosition = initLeft;
         sniperLeftTrans.localRotation = initReloadTilt;
-        yield return null;
+        yield break;
     }
 
     public void Reload() {
@@ -100,7 +125,8 @@ public class GunController : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         while (Time.time - reloadStart < reloadAnimDuration) {
-            float y = Mathf.Lerp(maxReloadDip, 0, (Time.time - reloadStart - halfReload)/halfReload);
+            Debug.Log("wow");
+            float y = Mathf.Lerp(maxReloadDip, 0, ((Time.time - reloadStart) - halfReload)/halfReload);
             sniperLeftTrans.localPosition = new Vector3(sniperLeftTrans.localPosition.x, initLeft.y - y, sniperLeftTrans.localPosition.z);
             sniperRightTrans.localPosition = new Vector3(sniperRightTrans.localPosition.x, initRight.y - y, sniperRightTrans.localPosition.z);
 
@@ -114,21 +140,21 @@ public class GunController : MonoBehaviour
         sniperLeftTrans.localPosition = initLeft;
         sniperRightTrans.localRotation = initReloadTilt;
         sniperLeftTrans.localRotation = initReloadTilt;
-        yield return null;
+        yield break;
     }
 
     IEnumerator FlashLeft() {
         muzzleLeft.enabled = true;
         yield return new WaitForSeconds(flashDuration);
         muzzleLeft.enabled = false;
-        yield return null;
+        yield break;
     }
 
     IEnumerator FlashRight() {
         muzzleRight.enabled = true;
         yield return new WaitForSeconds(flashDuration);
         muzzleRight.enabled = false;
-        yield return null;
+        yield break;
     }
 
 
@@ -137,12 +163,13 @@ public class GunController : MonoBehaviour
     {
         muzzleLeft.enabled = false;
         muzzleRight.enabled = false;
-        initReloadDip = sniperLeftTrans.position.y;
         initReloadTilt = sniperLeftTrans.localRotation;
         initLeft = sniperLeftTrans.localPosition;
         initRight = sniperRightTrans.localPosition;
         halfReload = 0.5f * reloadAnimDuration;
         initRecoilDur = recoilDuration - recoveryDuration;
+        Debug.Log("init recoil dur " + initRecoilDur);
+        maxRecoilQuat = Quaternion.Euler(initReloadTilt.eulerAngles.x, initReloadTilt.eulerAngles.y, initReloadTilt.eulerAngles.z - maxRecoilTilt);
         maxTiltQuat = Quaternion.Euler(initReloadTilt.eulerAngles.x, initReloadTilt.eulerAngles.y, initReloadTilt.eulerAngles.z - maxReloadTilt);
     }
 
