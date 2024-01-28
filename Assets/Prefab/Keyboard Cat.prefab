@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 114585176073841036}
   - component: {fileID: 413093651403833577}
   - component: {fileID: 540364193758883701}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Keyboard Cat
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

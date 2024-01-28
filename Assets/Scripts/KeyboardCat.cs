@@ -46,7 +46,7 @@ public class KeyboardCat : MonoBehaviour
                     // Shoot player
                     GameObject bullet = Instantiate(bulletPrefab, transform.position,
                                 Quaternion.LookRotation(hit.normal, Vector3.up));
-                    bullet.GetComponent<Bullet>().GetBulletVector(bulletVector);
+                    bullet.GetComponent<Bullet>().bulletVector = bulletVector;
                 }
             }
             yield return new WaitForSeconds(waitTime);
