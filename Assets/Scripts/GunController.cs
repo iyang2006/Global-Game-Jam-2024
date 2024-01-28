@@ -22,6 +22,8 @@ public class GunController : MonoBehaviour
     [SerializeField] private Material glowing;
     [SerializeField] private MeshRenderer leftMesh;
     [SerializeField] private MeshRenderer rightMesh;
+    [SerializeField] private MeshRenderer leftSmoke;
+    [SerializeField] private MeshRenderer rightSmoke;
 
     private float initRecoilDur;
 
@@ -145,15 +147,19 @@ public class GunController : MonoBehaviour
 
     IEnumerator FlashLeft() {
         muzzleLeft.enabled = true;
+        leftSmoke.enabled = true;
         yield return new WaitForSeconds(flashDuration);
         muzzleLeft.enabled = false;
+        leftSmoke.enabled = false;
         yield break;
     }
 
     IEnumerator FlashRight() {
         muzzleRight.enabled = true;
+        rightSmoke.enabled = true;
         yield return new WaitForSeconds(flashDuration);
         muzzleRight.enabled = false;
+        rightSmoke.enabled = false;
         yield break;
     }
 
@@ -168,6 +174,8 @@ public class GunController : MonoBehaviour
         initRight = sniperRightTrans.localPosition;
         halfReload = 0.5f * reloadAnimDuration;
         initRecoilDur = recoilDuration - recoveryDuration;
+        leftSmoke.enabled = false;
+        rightSmoke.enabled = false;
         maxRecoilQuat = Quaternion.Euler(initReloadTilt.eulerAngles.x, initReloadTilt.eulerAngles.y, initReloadTilt.eulerAngles.z - maxRecoilTilt);
         maxTiltQuat = Quaternion.Euler(initReloadTilt.eulerAngles.x, initReloadTilt.eulerAngles.y, initReloadTilt.eulerAngles.z - maxReloadTilt);
     }
